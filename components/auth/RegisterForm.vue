@@ -2,6 +2,12 @@
 	<v-card>
 		<v-card-title v-if="!isRegistered">Register</v-card-title>
 		<v-card-text>
+			<v-alert v-if="registerError.length > 0" type="error" class="mt-3">
+    			 <strong>{{ registerError }}</strong>
+  			</v-alert>
+			<v-alert v-if="isRegistered" type="success" class="mt-3">
+    			 <strong>Registration was successful, continue to login form</strong>
+  			</v-alert>			
 			<v-form v-if="!isRegistered" @submit.prevent class="mb-5">
 				<v-text-field
 					v-model.trim="registerForm.name"
@@ -44,13 +50,7 @@
 					@click:append="showPassword2 = !showPassword2"
 				/>
 				<v-btn @click="signUp" depressed large color="primary">Sign Up</v-btn>
-			</v-form>
-			<v-app-bar v-if="registerError.length > 0">
-				<strong>{{ registerError }}</strong>
-			</v-app-bar>
-			<v-app-bar v-if="isRegistered">
-				<strong>Registration was successful, continue to login form</strong>
-			</v-app-bar>
+			</v-form>			  
 		</v-card-text>
 	</v-card>
 </template>

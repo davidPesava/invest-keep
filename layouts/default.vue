@@ -1,9 +1,7 @@
 <template>
   <v-app dark>
     <v-content>
-      <v-container>
-        <nuxt />
-      </v-container>
+      <nuxt />
     </v-content>
     <v-footer
       :fixed="fixed"
@@ -15,6 +13,7 @@
 </template>
 
 <script>
+
 export default {
   data () {
     return {

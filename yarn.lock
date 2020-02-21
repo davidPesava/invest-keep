@@ -6632,6 +6632,10 @@ vue-template-es2015-compiler@^1.9.0:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
 
+vue2-smooth-scroll@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/vue2-smooth-scroll/-/vue2-smooth-scroll-1.2.0.tgz#0dd1c0f9f083a34d2327ecc3ea0b65dc8d19b216"
+
 vue@^2.6.11:
   version "2.6.11"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.11.tgz#76594d877d4b12234406e84e35275c6d514125c5"

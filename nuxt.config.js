@@ -33,7 +33,7 @@ export default {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: ['~/plugins/firebase.js'],
+  plugins: ['~/plugins/firebase.js','~/plugins/vue-scroll.js'],
   /*
   ** Nuxt.js dev-modules
   */

@@ -7,6 +7,7 @@
       fixed
       app
     >
+      <Logo :small="true" />
       <v-list>
         <v-list-item
           v-for="(item, i) in items"
@@ -39,7 +40,12 @@
 </template>
 
 <script>
+  import Logo from "../components/layout/Logo"
+
 export default {
+  components: {
+    Logo
+  },
   data () {
     return {
       clipped: false,

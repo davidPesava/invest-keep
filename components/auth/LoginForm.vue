@@ -2,6 +2,9 @@
 	<v-card>
 		<v-card-title>Login</v-card-title>
 		<v-card-text>
+			<v-alert v-if="loginError.length > 0" type="error" class="mt-3">
+    			<strong>{{ loginError }}</strong>
+  			</v-alert>			
 			<v-form @submit.prevent>
 				<v-text-field
 					label="Email"
@@ -22,9 +25,6 @@
 					@click:append="showPassword = !showPassword"
 				/>
 				<v-btn @click="login" depressed large color="primary">Log In</v-btn>
-				<v-app-bar v-if="loginError.length > 0">
-					<strong>{{ loginError }}</strong>
-				</v-app-bar>
 			</v-form>
 		</v-card-text>
 	</v-card>

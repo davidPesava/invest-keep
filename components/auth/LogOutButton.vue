@@ -1,7 +1,7 @@
 <template>
-	<v-banner>
+	<div>
 		<v-btn @click="logOut" outlined>Logo out</v-btn>
-	</v-banner>
+	</div>
 </template>
 
 <script>
