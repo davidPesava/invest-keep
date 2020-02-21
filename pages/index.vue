@@ -17,9 +17,9 @@
 					:class="isMobileMenuOpen ? 'd-xs-block' : 'd-none d-md-block'"
 				>
 					<div class="defaul-layout__menu-items">
+						<a href="#home" class="defaul-layout__menu-item" v-smooth-scroll>Home</a>
 						<a href="#functions" class="defaul-layout__menu-item" v-smooth-scroll>Functions</a>
-						<a href="#stocks" class="defaul-layout__menu-item" v-smooth-scroll>Stocks</a>
-						<a href="#currency" class="defaul-layout__menu-item" v-smooth-scroll>Currency</a>
+						<a href="#stocks" class="defaul-layout__menu-item" v-smooth-scroll>Stocks & Currencies</a>
 						<a href="#faq" class="defaul-layout__menu-item" v-smooth-scroll>FAQ</a>
 						<a href="#about" class="defaul-layout__menu-item" v-smooth-scroll>About</a>
 					</div>
@@ -100,7 +100,7 @@
 					</ul>
 				</v-col>		
 			</v-row>
-			<div class="default-layout__block">
+			<div class="default-layout__block" id="home">
 				<v-row>
 					<v-col cols="12" md="5" class="default-layout__topCover">
 						<div>
@@ -123,6 +123,74 @@
 					</v-col>
 				</v-row>	
 			</div>
+			<div class="default-layout__block" id="functions">
+				<v-row>
+					<v-col cols="12" md="7">
+						<img src="/graphs.jpg" alt="InvestKeep Main" class="default-layout__cover">
+					</v-col>
+					<v-col cols="12" md="5" class="default-layout__topCover">
+						<div>
+							<h2 class="display-2 mb-3">Functions to help</h2>
+								<ul class="default-layout__benefits">
+									<li>Great database of stocks of all market leading companies</li>
+									<li>Stock data visualisation</li>
+									<li>Currency data visualisation</li>
+									<li>Custom dashboards</li>
+									<li>Portfolio summaries</li>
+								</ul>		
+						</div>
+					</v-col>
+				</v-row>
+			</div>
+			<div class="default-layout__block" id="stocks">
+				<v-row>
+					<v-col cols="12" md="5" class="default-layout__topCover">
+						<div>
+							<h2 class="display-2 mb-3">Stocks & Currencies</h2>
+							<p>From web service <a href="https://www.worldtradingdata.com/" target="_blank">World Trading Data</a> that is our data provider,
+							we can offer your wide collection of Stocks and Currencies to create your visualisable portfolios.
+							It's easy, just type name of company or currency and see all that data you need.
+							</p>		
+						</div>
+					</v-col>					
+					<v-col cols="12" md="7">
+						<img src="/data.jpg" alt="InvestKeep Main" class="default-layout__cover">
+					</v-col>
+				</v-row>
+			</div>	
+			<div class="default-layout__block" id="faq">
+				<v-row>
+					<h2 class="display-2 text-center d-block full-width mb-5">Frequently asked questions</h2>
+					<v-col cols="12" class="default-layout__topCover">
+						<v-expansion-panels>
+							<v-expansion-panel
+							v-for="(item,i) in 5"
+							:key="i"
+							>
+								<v-expansion-panel-header>Question</v-expansion-panel-header>
+								<v-expansion-panel-content>
+									With long answer. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+								</v-expansion-panel-content>
+							</v-expansion-panel>
+						</v-expansion-panels>							
+					</v-col>
+				</v-row>
+			</div>	
+			<div class="default-layout__block" id="about">
+				<v-row>
+					<h2 class="display-2 text-center d-block full-width mb-5">About</h2>
+					<v-col cols="12">
+						<p class="text-center">This application was made as part of bachleor final work and is open-source.</p>
+						<p class="text-center mb-6">You can find source code <a href="https://github.com/davidPesava/invest-keep" target="_blank">HERE</a>.</p>
+						<h3 class="headline text-center">Powered by:</h3>
+						<div class="default-layout__tech-logos">
+							<img src="/vue.png" alt="Vue.js">
+							<img src="/firebase.png" alt="Firebase">
+							<img src="/nuxt.png" alt="NUXT">
+						</div>
+					</v-col>
+				</v-row>
+			</div>											
 		</v-container>
 	</div>
 </template>
@@ -273,6 +341,30 @@
 
   .default-layout__block {
 	  min-height: 400px;
-	  margin-bottom: 4rem;
+	  margin-bottom: 2rem;
+	  padding-bottom: 4.5rem;
+	  border-bottom: 1px solid #ddd;
+  }
+
+  .default-layout__tech-logos {
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	  flex-direction: column;
+
+	@media screen and (min-width: 960px) {
+		flex-direction: row;	 
+	}
+	
+	  img {
+		width: 100px;
+		height: auto;
+		margin: 3rem
+	  }
+	  
+  }
+
+  .full-width {
+	  width: 100%;
   }
 </style>
