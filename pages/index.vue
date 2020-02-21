@@ -17,11 +17,11 @@
 					:class="isMobileMenuOpen ? 'd-xs-block' : 'd-none d-md-block'"
 				>
 					<div class="defaul-layout__menu-items">
-						<a href="#about" class="defaul-layout__menu-item" v-smooth-scroll>About</a>
 						<a href="#functions" class="defaul-layout__menu-item" v-smooth-scroll>Functions</a>
 						<a href="#stocks" class="defaul-layout__menu-item" v-smooth-scroll>Stocks</a>
 						<a href="#currency" class="defaul-layout__menu-item" v-smooth-scroll>Currency</a>
 						<a href="#faq" class="defaul-layout__menu-item" v-smooth-scroll>FAQ</a>
+						<a href="#about" class="defaul-layout__menu-item" v-smooth-scroll>About</a>
 					</div>
 				</v-col>
 				<v-col 
@@ -77,15 +77,52 @@
 						</v-card-actions>
 					</v-card>
 				</v-col>				
-				<v-col v-if="!currentUser && isLoginFormOpen" cols="12">
+				<v-col v-if="!currentUser && isLoginFormOpen" cols="6" offset="3">
 					<login-form
 						class="mb-5"
 						@updateUser = getDataFromChild />
 				</v-col>
-				<v-col v-if="!currentUser && isRegisterFormOpen" cols="12">
+				<v-col v-if="!currentUser && isRegisterFormOpen" cols="12" md="6">
 					<register-form class="mb-5" />
 				</v-col>
+				<v-col v-if="!currentUser && isRegisterFormOpen" cols="12" md="6" class="pl-4 pl-md-12">
+					<h2 class="mb-4">Benefits of registration</h2>
+					<ul class="default-layout__benefits">
+						<li>Access to app</li>
+						<li>Personal account</li>
+						<li>Great database of stocks of all market leading companies</li>
+						<li>Stock data visualisation</li>
+						<li>Currency data visualisation</li>
+						<li>Custom dashboards</li>
+						<li>Portfolio summaries</li>
+						<li>Safe time on boaring reports</li>
+						<li>E-mail support</li>
+					</ul>
+				</v-col>		
 			</v-row>
+			<div class="default-layout__block">
+				<v-row>
+					<v-col cols="12" md="5" class="default-layout__topCover">
+						<div>
+							<h1 class="display-2 mb-3">Welcome at InvestKeep</h1>
+							<p class="headline font-weight-light">
+								Home of stock and currency portfolio visualisation.<br>
+								Manage and track your investments like never before.
+							</p>
+							<v-btn
+								v-if="!currentUser"
+								color="secondary"
+								@click="handleRegisterForm"
+							>
+								Get started
+							</v-btn>			
+						</div>
+					</v-col>
+					<v-col cols="12" md="7">
+						<img src="/c.jpg" alt="InvestKeep Main" class="default-layout__cover">
+					</v-col>
+				</v-row>	
+			</div>
 		</v-container>
 	</div>
 </template>
@@ -175,6 +212,7 @@
 	width: 100%;
 	text-align: center;
 	padding: 0.5rem;
+	color: rgba(0, 0, 0, 0.87);
 	border-bottom: 1px solid #ddd;
 
 	@media screen and (min-width: 960px) {
@@ -189,6 +227,7 @@
 
 	  &:hover {
 		  text-decoration: underline;
+		  color: #1976d2;
 	  }
   }
 
@@ -197,5 +236,43 @@
 	justify-content: center;
 	align-items: center;
 	padding-top: 1rem;
+  }
+
+  .default-layout__cover {
+	  width: 100%;
+  }
+
+  .default-layout__topCover {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+  }
+
+  .default-layout__block {
+	  padding-top: 2rem;
+  }
+
+  .default-layout__benefits {
+	li {
+		margin-bottom: 1rem;
+		list-style-type: none;
+		position: relative
+	}
+
+	li:before {
+		content: "";
+		width: 8px;
+		height: 8px;
+		background: #1976d2;
+		position: absolute;
+		border-radius: 100%;
+		left: -18px;
+		top: 7px;
+	}
+  }
+
+  .default-layout__block {
+	  min-height: 400px;
+	  margin-bottom: 4rem;
   }
 </style>
