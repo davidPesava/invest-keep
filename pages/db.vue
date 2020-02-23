@@ -4,9 +4,13 @@
 		justify-center
 		align-center
 	>
-		<h1 v-if="currentUser">{{ currentUser.uid }}</h1>
-		<h2 v-if="credentials" class="mb-5">{{ credentials.name }}</h2> 
+		<h1 v-if="credentials" class="mb-5">Hello, {{ credentials.name }}</h1> 
+		<h3>Your portfolio now includes:</h3>
+		<ul v-for="company in companies">
+			<li :key="company">{{ company }}</li>
+		</ul>
 		<GChart type="BarChart" :data="chatLoadedData" :options="chartOptions.base" class="mb-5"/>    
+		<GChart type="Table" :data="chatLoadedData" :options="chartOptions.base" class="mb-5"/>    
 	</v-layout>
 </template>
 
@@ -19,7 +23,10 @@
 				middleware: 'router-auth',
 				components: {GChart},
 				created: function () { 
-						this.fetchStocks()          
+						this.fetchStocks() 
+						
+						this.fetchHistory()
+
 						this.currentUser = this.$store.state.users.currentUser
 						let allUsers = firebase.firestore().collection('users').doc(this.currentUser.uid)
 						let getDoc = allUsers.get()
@@ -43,12 +50,17 @@
 							helper.push(element.name)
 							helper.push(parseFloat(element.price))
 							helper.push(parseFloat(element.day_high))
+							this.companies.push(element.name)
 							this.chatLoadedData.push(helper)
 						});
 					},
 					async fetchHistory() {
-						const fetchedHistory = await this.$axios.$get(this.$store.state.config.env.baseApiUrl+'stock?symbol='+this.symbols+ '&api_token='+this.$store.state.config.env.apiToken)
-						console.log()
+						const fetchedHistory = await this.$axios.$get(this.$store.state.config.env.baseApiUrl+'history?symbol=TWTR&api_token='+this.$store.state.config.env.apiToken)
+
+						Object.keys(fetchedHistory.history).forEach(key => {
+							console.log(key);        // date
+							console.log(fetchedHistory.history[key].high) // Highest price that date
+						});
 					}   
 				},
 				data() {
@@ -57,6 +69,7 @@
 							credentials: {},
 							loadedStocks: {},
 							symbols: 'SNAP,TWTR,VOD.L',
+							companies: [],
 							chatLoadedData: [],
 							chatHistoryData: [],
 							chartOptions: {
