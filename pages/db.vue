@@ -71,7 +71,7 @@
 						})
 
 
-
+						//loop start
 						let outerHelper = []
 						outerHelper .push(['Date','Price'])
 						const fetchedHistory = await this.$axios.$get(this.$store.state.config.env.baseApiUrl+'history?symbol=TWTR&api_token='+this.$store.state.config.env.apiToken)
@@ -84,9 +84,11 @@
 								outerHelper.push(helper)
 							}
 						})
-
-
 						this.chatHistoryData.push(outerHelper)
+						//loopend
+
+
+
 						this.chatHistoryData.push(outerHelper)
 						console.log(this.chatHistoryData)
 					}   
