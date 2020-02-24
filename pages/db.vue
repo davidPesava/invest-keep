@@ -10,6 +10,16 @@
 			<li :key="company">{{ company }}</li>
 		</ul>
 		<GChart type="BarChart" :data="chatLoadedData" :options="chartOptions.base" class="mb-5"/>    
+		
+		<div v-for="graph in chatHistoryData">
+			<GChart type="LineChart" :data="graph" class="mb-5"/>
+		</div>
+		
+		
+		 
+
+
+
 		<GChart type="Table" :data="chatLoadedData" :options="chartOptions.base" class="mb-5"/>    
 	</v-layout>
 </template>
@@ -24,7 +34,6 @@
 				components: {GChart},
 				created: function () { 
 						this.fetchStocks() 
-						
 						this.fetchHistory()
 
 						this.currentUser = this.$store.state.users.currentUser
@@ -55,12 +64,31 @@
 						});
 					},
 					async fetchHistory() {
-						const fetchedHistory = await this.$axios.$get(this.$store.state.config.env.baseApiUrl+'history?symbol=TWTR&api_token='+this.$store.state.config.env.apiToken)
+						let arraySymbols = this.symbols.split(",")
 
-						Object.keys(fetchedHistory.history).forEach(key => {
-							console.log(key);        // date
-							console.log(fetchedHistory.history[key].high) // Highest price that date
-						});
+						arraySymbols.forEach((element, index, array) => {
+							console.log(element)
+						})
+
+
+
+						let outerHelper = []
+						outerHelper .push(['Date','Price'])
+						const fetchedHistory = await this.$axios.$get(this.$store.state.config.env.baseApiUrl+'history?symbol=TWTR&api_token='+this.$store.state.config.env.apiToken)
+						
+						Object.keys(fetchedHistory.history).forEach((key,index) => {
+							if(index < 7) {
+								let helper = []
+								helper.push(key)
+								helper.push(parseFloat(fetchedHistory.history[key].high))
+								outerHelper.push(helper)
+							}
+						})
+
+
+						this.chatHistoryData.push(outerHelper)
+						this.chatHistoryData.push(outerHelper)
+						console.log(this.chatHistoryData)
 					}   
 				},
 				data() {
