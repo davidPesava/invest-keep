@@ -77,7 +77,7 @@
 						const fetchedHistory = await this.$axios.$get(this.$store.state.config.env.baseApiUrl+'history?symbol=TWTR&api_token='+this.$store.state.config.env.apiToken)
 						
 						Object.keys(fetchedHistory.history).forEach((key,index) => {
-							if(index < 7) {
+							if(index < this.chatHistoryDataDays) {
 								let helper = []
 								helper.push(key)
 								helper.push(parseFloat(fetchedHistory.history[key].high))
@@ -102,6 +102,7 @@
 							companies: [],
 							chatLoadedData: [],
 							chatHistoryData: [],
+							chatHistoryDataDays: 7,
 							chartOptions: {
 								base: {
 									title: 'Base Stocks prices',
