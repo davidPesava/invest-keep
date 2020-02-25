@@ -1,6 +1,10 @@
-# firebaselogin
+# InvestKeep
 
-> Firebase login
+> InvestKeep - David Pešava Bachleor work
+
+##Enviroment
+
+> Nodejs
 
 ## Build Setup
 
