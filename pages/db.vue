@@ -9,7 +9,7 @@
 		<ul v-for="company in companies">
 			<li :key="company">{{ company }}</li>
 		</ul>
-		<GChart type="BarChart" :data="chatLoadedData" :options="chartOptions.base" class="mb-5"/>    
+		<GChart type="ColumnChart" :data="chatLoadedData" :options="chartOptions.base" class="mb-5"/>    
 		
 		<div v-for="graph in chatHistoryData">
 			<GChart type="LineChart" :data="graph" class="mb-5"/>
@@ -33,9 +33,6 @@
 				middleware: 'router-auth',
 				components: {GChart},
 				created: function () { 
-						this.fetchStocks() 
-						this.fetchHistory()
-
 						this.currentUser = this.$store.state.users.currentUser
 						let allUsers = firebase.firestore().collection('users').doc(this.currentUser.uid)
 						let getDoc = allUsers.get()
@@ -45,13 +42,36 @@
 							 } else {
 								let val = JSON.parse(JSON.stringify(doc.data()))
 								this.$store.commit('users/setCredentials', val)	
-								this.credentials = this.$store.state.users.credentials
+
+								//Fetch all stocks into one graph
+								this.fetchStocks(val.stocks) 
+
+								//Fetch each stock into one history graph
+								let arraySymbols = val.stocks.split(",")
+								arraySymbols.forEach((element, index, array) => {
+									console.log(element)
+									let historyArray = this.fetchHistory(element).then(
+										singleHistory => {
+											this.chatHistoryData.push(singleHistory)
+										}
+									)
+								})							
+
+
+
+
+
+
+
+
 							 }
 						 })
+						
 				},
 				methods: {
-					async fetchStocks() {
-						const fetchedStocks = await this.$axios.$get(this.$store.state.config.env.baseApiUrl+'stock?symbol='+this.symbols+ '&api_token='+this.$store.state.config.env.apiToken)
+					async fetchStocks(usersSymbols) {
+						let symbols = usersSymbols
+						const fetchedStocks = await this.$axios.$get(this.$store.state.config.env.baseApiUrl+'stock?symbol='+symbols+ '&api_token='+this.$store.state.config.env.apiToken)
 						let localArrayNames = ['Name','Price actual','Price - Highest of the day']
 						this.chatLoadedData.push(localArrayNames)
 						fetchedStocks.data.forEach((element, index, array) => {
@@ -63,19 +83,13 @@
 							this.chatLoadedData.push(helper)
 						});
 					},
-					async fetchHistory() {
-						let arraySymbols = this.symbols.split(",")
 
-						arraySymbols.forEach((element, index, array) => {
-							console.log(element)
-						})
-
-
-						//loop start
+					async fetchHistory(usersSymbols) {
+						let symbols = usersSymbols
 						let outerHelper = []
 						outerHelper .push(['Date','Price'])
-						const fetchedHistory = await this.$axios.$get(this.$store.state.config.env.baseApiUrl+'history?symbol=TWTR&api_token='+this.$store.state.config.env.apiToken)
-						
+						const fetchedHistory = await this.$axios.$get(this.$store.state.config.env.baseApiUrl+'history?symbol='+symbols+'&api_token='+this.$store.state.config.env.apiToken)
+						//console.log(fetchedHistory.name)
 						Object.keys(fetchedHistory.history).forEach((key,index) => {
 							if(index < this.chatHistoryDataDays) {
 								let helper = []
@@ -84,25 +98,19 @@
 								outerHelper.push(helper)
 							}
 						})
-						this.chatHistoryData.push(outerHelper)
-						//loopend
-
-
-
-						this.chatHistoryData.push(outerHelper)
-						console.log(this.chatHistoryData)
-					}   
+						return outerHelper						
+					},
 				},
 				data() {
 						return {
 							currentUser: '',
 							credentials: {},
 							loadedStocks: {},
-							symbols: 'SNAP,TWTR,VOD.L',
+							symbols: '',
 							companies: [],
 							chatLoadedData: [],
 							chatHistoryData: [],
-							chatHistoryDataDays: 7,
+							chatHistoryDataDays: 14,
 							chartOptions: {
 								base: {
 									title: 'Base Stocks prices',
