@@ -24,6 +24,9 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+      <div class="app-layout__logOutButtonContainer">
+        <log-out-button />
+      </div>
     </v-navigation-drawer>
     <v-content>
       <v-container>
@@ -41,10 +44,12 @@
 
 <script>
   import Logo from "../components/layout/Logo"
+  import LogOutButton from "../components/auth/LogOutButton"
+
 
 export default {
   components: {
-    Logo
+    Logo, LogOutButton
   },
   data () {
     return {
@@ -54,14 +59,29 @@ export default {
       items: [
         {
           icon: 'mdi-apps',
-          title: 'Welcome',
+          title: 'Homepage',
           to: '/'
         },
         {
-          icon: this.$store.state.users.currentUser ? 'mdi-chart-bubble' : '',
-          title: this.$store.state.users.currentUser ? 'Dashboard' : '',
-          to: this.$store.state.users.currentUser ? '/db' : '',
-        }
+          icon: 'mdi-chart-bubble',
+          title: 'Dashboard',
+          to: '/db',
+        },
+        {
+          icon: 'mdi-chart-bubble',
+          title: 'Stocks',
+          to: '/stocks',
+        },   
+        {
+          icon: 'mdi-chart-bubble',
+          title: 'Currencies',
+          to: '/currencies',
+        },   
+        {
+          icon: 'mdi-chart-bubble',
+          title: 'Account',
+          to: '/account',
+        }                  
       ],
       miniVariant: false,
       right: true,
@@ -71,3 +91,11 @@ export default {
   },
 }
 </script>
+
+<style>
+.app-layout__logOutButtonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+</style>
