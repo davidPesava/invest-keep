@@ -100,6 +100,29 @@
 					</ul>
 				</v-col>		
 			</v-row>
+			<div class="default-layout__block" id="home">
+				<v-row>
+					<v-col cols="12" md="5" class="default-layout__topCover">
+						<div>
+							<h1 class="display-2 mb-3">Welcome at InvestKeep</h1>
+							<p class="headline font-weight-light">
+								Home of stock and currency portfolio visualisation.<br>
+								Manage and track your investments like never before.
+							</p>
+							<v-btn
+								v-if="!currentUser"
+								color="secondary"
+								@click="handleRegisterForm"
+							>
+								Get started
+							</v-btn>			
+						</div>
+					</v-col>
+					<v-col cols="12" md="7">
+						<img src="/c.jpg" alt="InvestKeep Main" class="default-layout__cover">
+					</v-col>
+				</v-row>	
+        	</div>			
 			<defaultPageContent />											
 		</v-container>
 	</div>

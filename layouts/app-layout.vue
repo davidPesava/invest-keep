@@ -58,27 +58,27 @@ export default {
       fixed: false,
       items: [
         {
-          icon: 'mdi-apps',
+          icon: 'mdi-home',
           title: 'Homepage',
           to: '/'
         },
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-view-dashboard',
           title: 'Dashboard',
           to: '/db',
         },
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-chart-line',
           title: 'Stocks',
           to: '/stocks',
         },   
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-currency-eur',
           title: 'Currencies',
           to: '/currencies',
         },   
         {
-          icon: 'mdi-chart-bubble',
+          icon: 'mdi-account',
           title: 'Account',
           to: '/account',
         }                  
