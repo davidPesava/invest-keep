@@ -4,6 +4,8 @@
 		justify-center
 		align-center
 	>
+
+		
 		<h1 v-if="credentials" class="mb-5">Hello, {{ credentials.name }}</h1> 
 		<h3>Your portfolio now includes:</h3>
 		<ul v-for="company in companies">
@@ -11,10 +13,7 @@
 		</ul>
 		<GChart type="ColumnChart" :data="chatLoadedData" :options="chartOptions.base" class="mb-5"/>    
 		
-		<div v-for="graph in chatHistoryData">
-			<GChart type="LineChart" :data="graph" class="mb-5"/>
-		</div>
-		
+		<history-graphs :symbols="symbols" />
 		
 		 
 
@@ -27,11 +26,12 @@
 <script>
 		import firebase from 'firebase'
 		import { GChart } from 'vue-google-charts'
+		import historyGraphs from "../components/graphs/history-graphs"
 
 		export default {
 				layout: 'app-layout',
 				middleware: 'router-auth',
-				components: {GChart},
+				components: {GChart, historyGraphs},
 				created: function () { 
 						this.currentUser = this.$store.state.users.currentUser
 						let allUsers = firebase.firestore().collection('users').doc(this.currentUser.uid)
@@ -43,27 +43,12 @@
 								let val = JSON.parse(JSON.stringify(doc.data()))
 								this.$store.commit('users/setCredentials', val)	
 
-								//Fetch all stocks into one graph
+
+								//Fetch all stock to render into graph
 								this.fetchStocks(val.stocks) 
 
-								//Fetch each stock into one history graph
-								let arraySymbols = val.stocks.split(",")
-								arraySymbols.forEach((element, index, array) => {
-									console.log(element)
-									let historyArray = this.fetchHistory(element).then(
-										singleHistory => {
-											this.chatHistoryData.push(singleHistory)
-										}
-									)
-								})							
-
-
-
-
-
-
-
-
+								//Fetch users stocks to be used next
+								this.symbols = val.stocks
 							 }
 						 })
 						
@@ -82,23 +67,6 @@
 							this.companies.push(element.name)
 							this.chatLoadedData.push(helper)
 						});
-					},
-
-					async fetchHistory(usersSymbols) {
-						let symbols = usersSymbols
-						let outerHelper = []
-						outerHelper .push(['Date','Price'])
-						const fetchedHistory = await this.$axios.$get(this.$store.state.config.env.baseApiUrl+'history?symbol='+symbols+'&api_token='+this.$store.state.config.env.apiToken)
-						//console.log(fetchedHistory.name)
-						Object.keys(fetchedHistory.history).forEach((key,index) => {
-							if(index < this.chatHistoryDataDays) {
-								let helper = []
-								helper.push(key)
-								helper.push(parseFloat(fetchedHistory.history[key].high))
-								outerHelper.push(helper)
-							}
-						})
-						return outerHelper						
 					},
 				},
 				data() {
