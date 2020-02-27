@@ -4,22 +4,14 @@
 		justify-center
 		align-center
 	>
-
-		
 		<h1 v-if="credentials" class="mb-5">Hello, {{ credentials.name }}</h1> 
 		<h3>Your portfolio now includes:</h3>
-		<ul v-for="company in companies">
-			<li :key="company">{{ company }}</li>
-		</ul>
-		<GChart type="ColumnChart" :data="chatLoadedData" :options="chartOptions.base" class="mb-5"/>    
-		
-		<history-graphs :symbols="symbols" />
-		
-		 
-
-
-
 		<GChart type="Table" :data="chatLoadedData" :options="chartOptions.base" class="mb-5"/>    
+		<!--<ul v-for="company in companies">
+			<li :key="company">{{ company }}</li>
+		</ul> -->
+		<history-graphs v-if="symbols" :symbols="symbols" />
+		<GChart type="ColumnChart" :data="chatLoadedData" :options="chartOptions.base" class="mb-5"/>    
 	</v-layout>
 </template>
 
