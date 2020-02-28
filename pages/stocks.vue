@@ -49,7 +49,7 @@
 					async fetchStocks(usersSymbols) {
 						let symbols = usersSymbols
 						const fetchedStocks = await this.$axios.$get(this.$store.state.config.env.baseApiUrl+'stock?symbol='+symbols+ '&api_token='+this.$store.state.config.env.apiToken)
-						let localArrayNames = ['Name','Price actual','Price - Highest of the day','Price lowest', 'Price open']
+						let localArrayNames = ['Name','Price actual','Price - Highest of the day','Price - lowest of the day', 'Price open - today']
 						this.chatLoadedData.push(localArrayNames)
 						fetchedStocks.data.forEach((element, index, array) => {
 							let helper = []
