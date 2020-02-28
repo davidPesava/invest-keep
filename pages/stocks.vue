@@ -4,14 +4,14 @@
 		justify-center
 		align-center
 	>
-		<h1 v-if="credentials" class="mb-5">Hello, {{ credentials.name }}</h1> 
-		<h3>Your portfolio now includes:</h3>
+		<h1 class="mb-5">Stocks</h1> 
+		<h3 class="mb-3">Your portfolio now includes:</h3>
 		<GChart type="Table" :data="chatLoadedData" :options="chartOptions.base" class="mb-5"/>    
 		<!--<ul v-for="company in companies">
 			<li :key="company">{{ company }}</li>
 		</ul> -->
-		<history-graphs v-if="symbols" :symbols="symbols" />
-		<GChart type="ColumnChart" :data="chatLoadedData" :options="chartOptions.base" class="mb-5"/>    
+		<GChart type="ColumnChart" :data="chatLoadedData" :options="chartOptions.base" class="mb-5"/>   
+		<history-graphs v-if="symbols" :symbols="symbols" /> 
 	</v-layout>
 </template>
 
@@ -49,13 +49,15 @@
 					async fetchStocks(usersSymbols) {
 						let symbols = usersSymbols
 						const fetchedStocks = await this.$axios.$get(this.$store.state.config.env.baseApiUrl+'stock?symbol='+symbols+ '&api_token='+this.$store.state.config.env.apiToken)
-						let localArrayNames = ['Name','Price actual','Price - Highest of the day']
+						let localArrayNames = ['Name','Price actual','Price - Highest of the day','Price lowest', 'Price open']
 						this.chatLoadedData.push(localArrayNames)
 						fetchedStocks.data.forEach((element, index, array) => {
 							let helper = []
 							helper.push(element.name)
 							helper.push(parseFloat(element.price))
 							helper.push(parseFloat(element.day_high))
+							helper.push(parseFloat(element.day_low))
+							helper.push(parseFloat(element.price_open))
 							this.companies.push(element.name)
 							this.chatLoadedData.push(helper)
 						});
@@ -64,7 +66,6 @@
 				data() {
 						return {
 							currentUser: '',
-							credentials: {},
 							loadedStocks: {},
 							symbols: '',
 							companies: [],
@@ -75,7 +76,8 @@
 								base: {
 									title: 'Base Stocks prices',
 									subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-									crosshair: {trigger: 'both'}
+									crosshair: {trigger: 'both'},
+									width: 900,
 								}
 							} 
 						}
