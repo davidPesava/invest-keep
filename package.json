@@ -1,7 +1,7 @@
 {
-  "name": "firebaselogin",
+  "name": "investkeep",
   "version": "1.0.0",
-  "description": "Firebase login",
+  "description": "Invest Keep",
   "author": "davidPesava",
   "private": true,
   "scripts": {
