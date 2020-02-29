@@ -77,7 +77,7 @@
 						</v-card-actions>
 					</v-card>
 				</v-col>				
-				<v-col v-if="!currentUser && isLoginFormOpen" cols="6" offset="3">
+				<v-col v-if="!currentUser && isLoginFormOpen" cols="12" md="6" offset-md="3">
 					<login-form
 						class="mb-5"
 						@updateUser = getDataFromChild />
