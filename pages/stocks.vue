@@ -53,7 +53,7 @@
 						this.chatLoadedData.push(localArrayNames)
 						fetchedStocks.data.forEach((element, index, array) => {
 							let helper = []
-							helper.push(element.name)
+							helper.push(element.name + '(' + element.symbol + ')')
 							helper.push(parseFloat(element.price))
 							helper.push(parseFloat(element.day_high))
 							helper.push(parseFloat(element.day_low))

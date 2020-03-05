@@ -1,11 +1,12 @@
 <template>
 	<div v-if="chatHistoryData.length > 0">
-		<!-- First loop start - of object -->
-		<!-- Then print company name -->
-		<!-- Start inner loop -->
-	
-		<div v-for="graph in chatHistoryData"> <!-- This will be inner loop of data -->
-			<GChart type="LineChart" :data="graph"  :options="chartOptions.chart" class="mb-5"/>
+		<div v-for="companies in chatHistoryData">
+			<v-card>
+				<v-card-title>{{companies.name}}</v-card-title>
+				<v-card-text>
+					<GChart type="LineChart" :data="companies.data"  :options="chartOptions.chart" class="mb-5"/>
+				</v-card-text>
+			</v-card>
 		</div>
 	</div>
 </template>
@@ -19,38 +20,34 @@
 				name: "historyGraphs",
 				components: {GChart},
 				created: function () { 					
-					/*
-					Fetch each stock into one history graph
-					*/
 				   if(this.symbols.length > 0 ) {
 					let arraySymbols = this.symbols.split(",")
-					//let arraySymbols = ['TWTR','SNAP']
 					arraySymbols.forEach((element, index, array) => {
 						
 						let historyArray = this.fetchHistory(element).then(
 							singleHistory => {
 								this.chatHistoryData.push(singleHistory)
+								
 							}
 						)
 					})	
+					console.log(this.chatHistoryData)
 					}								
 				},
 				methods: {
 					async fetchHistory(usersSymbols) {
 						let symbols = usersSymbols
-						let outerHelper = [] // to be object
-						// 1) add property string to outer helper name
-						// 2) add property array data to outer helper
-						console.log(this.$store.state.config.env.baseApiUrl+'history?symbol='+symbols+'&api_token='+this.$store.state.config.env.apiToken)
-						outerHelper .push(['Date','Price']) // will push into array data property 
+						let outerHelper = {}
+						outerHelper.data = []
+						outerHelper.data.push(['Date','Price']) 
 						const fetchedHistory = await this.$axios.$get(this.$store.state.config.env.baseApiUrl+'history?symbol='+symbols+'&api_token='+this.$store.state.config.env.apiToken) 
-						// 3) here add company name into outer helper property name
+						outerHelper.name = fetchedHistory.name
 						Object.keys(fetchedHistory.history).forEach((key,index) => {
 							if(index < this.chatHistoryDataDays) {
 								let helper = []
 								helper.push(moment(key).format('ll'))
 								helper.push(parseFloat(fetchedHistory.history[key].high))
-								outerHelper.push(helper) // will push into outer helper property data egc- -> outerHelper.data.push(helper)
+								outerHelper.data.push(helper) // will push into outer helper property data egc- -> outerHelper.data.push(helper)
 							}
 						})
 						return outerHelper						
