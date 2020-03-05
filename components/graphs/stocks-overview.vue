@@ -3,76 +3,84 @@
 		<v-row>
 			<v-col cols="12" v-for="company in chatHistoryData" class="mb-5">
 				<v-card>
-					<v-card-title v-if="company.baseCreditials">{{ company.baseCreditials[0].name }}  ({{ company.baseCreditials[0].symbol }})</v-card-title>
+					<v-card-title v-if="company.baseCreditials">
+						{{ company.baseCreditials[0].name }} 
+						({{ company.baseCreditials[0].symbol }})
+						<div
+						class="ml-2"
+						:class="[parseFloat(company.baseCreditials[0].day_change) > 0 ?  'green--text' : 'red--text']">
+							{{ company.baseCreditials[0].day_change }}
+						</div>
+					</v-card-title>
 					<v-card-text>
 						<v-row>
 							<v-col cols="6">
 								<v-row>
 									<v-col cols="5">
 										<div class="d-flex justify-space-between">
-											<div>Currency</div>
+											<div class="font-weight-bold">Currency</div>
 											<div>{{ company.baseCreditials[0].currency }}</div>
 										</div>
 										<div class="d-flex justify-space-between">
-											<div>Price</div>
+											<div class="font-weight-bold">Price</div>
 											<div>{{ company.baseCreditials[0].price }}</div>
 										</div>	
 										<div class="d-flex justify-space-between">
-											<div>Price open</div>
+											<div class="font-weight-bold">Price open</div>
 											<div>{{ company.baseCreditials[0].price_open }}</div>
 										</div>	
 										<div class="d-flex justify-space-between">
-											<div>Day high</div>
+											<div class="font-weight-bold">Day high</div>
 											<div>{{ company.baseCreditials[0].day_high }}</div>
 										</div>	
 										<div class="d-flex justify-space-between">
-											<div>Day low</div>
+											<div class="font-weight-bold">Day low</div>
 											<div>{{ company.baseCreditials[0].day_low }}</div>
 										</div>	
 										<div class="d-flex justify-space-between">
-											<div>Day change</div>
+											<div class="font-weight-bold">Day change</div>
 											<div>{{ company.baseCreditials[0].day_change }}</div>
 										</div>		
 										<div class="d-flex justify-space-between">
-											<div>Change pct</div>
+											<div class="font-weight-bold">Change pct</div>
 											<div>{{ company.baseCreditials[0].change_pct }}</div>
 										</div>			
 										<div class="d-flex justify-space-between">
-											<div>Closer yeasterday</div>
+											<div class="font-weight-bold">Closer yeasterday</div>
 											<div>{{ company.baseCreditials[0].close_yesterday }}</div>
 										</div>																																																													
 									</v-col>
 									<v-col cols="6" offset="1">
 										<div class="d-flex justify-space-between">
-											<div>52 Weejs high</div>
+											<div class="font-weight-bold">52 Weeks high</div>
 											<div>{{ company.baseCreditials[0]['52_week_high'] }}</div>
 										</div>
 										<div class="d-flex justify-space-between">
-											<div>52 Weeks low</div>
+											<div class="font-weight-bold">52 Weeks low</div>
 											<div>{{ company.baseCreditials[0]['52_week_low'] }}</div>
 										</div>	
 										<div class="d-flex justify-space-between">
-											<div>PE</div>
+											<div class="font-weight-bold">PE</div>
 											<div>{{ company.baseCreditials[0].pe }}</div>
 										</div>																			
 										<div class="d-flex justify-space-between">
-											<div>EPS</div>
+											<div class="font-weight-bold">EPS</div>
 											<div>{{ company.baseCreditials[0].eps }}</div>
 										</div>																					
 										<div class="d-flex justify-space-between">
-											<div>Market cap</div>
+											<div class="font-weight-bold">Market cap</div>
 											<div>{{ company.baseCreditials[0].market_cap }}</div>
 										</div>	
 										<div class="d-flex justify-space-between">
-											<div>Volume</div>
+											<div class="font-weight-bold">Volume</div>
 											<div>{{ company.baseCreditials[0].volume }}</div>
 										</div>
 										<div class="d-flex justify-space-between">
-											<div>Volume avrage</div>
+											<div class="font-weight-bold">Volume avrage</div>
 											<div>{{ company.baseCreditials[0].volume_avg }}</div>
 										</div>	
 										<div class="d-flex justify-space-between">
-											<div>Shares</div>
+											<div class="font-weight-bold">Shares</div>
 											<div>{{ company.baseCreditials[0].shares }}</div>
 										</div>																																																			
 									</v-col>
