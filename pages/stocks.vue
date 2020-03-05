@@ -5,7 +5,6 @@
 		class="pl-6"
 	>
 		<h1 class="mb-5">Stocks</h1> 
-		<h3 class="mb-3">Your portfolio now includes:</h3>
 			<stocks-overview v-if="symbols" :symbols="symbols" /> 
 		<v-row>
 			<v-col cols="6">
