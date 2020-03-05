@@ -12,13 +12,7 @@
 				<v-text-field
 					v-model.trim="registerForm.name"
 					type="text"
-					placeholder="Your name and surname"
-					solo-inverted
-				/>
-				<v-text-field
-					v-model.trim="registerForm.title"
-					type="text"
-					placeholder="Title"
+					placeholder="Your name"
 					solo-inverted
 				/>
 				<v-text-field
@@ -68,7 +62,6 @@
 				registerError: '',
 				registerForm: {
 						name: '',
-						title: '',
 						email: '',
 						password: '',
 						passwordConfirm: ''
@@ -84,7 +77,6 @@
 								uid: user.user.uid,
 								email: this.registerForm.email,
 								name: this.registerForm.name,
-								title: this.registerForm.title,
 							}
 							//Put data into Firestore
 							firebase.firestore().collection('users').doc(user.user.uid).set(account)
