@@ -1,8 +1,8 @@
 <template>
 	<v-layout
 		column
-		justify-center
-		align-center
+		align-start
+		class="pl-6"
 	>
 	<h1>Currencies comming soon</h1>
 	</v-layout>

@@ -35,7 +35,7 @@
 							<v-btn
 								class="ma-2"
 								color="secondary"
-								href="/db"
+								href="/dashboard"
 							>
 								To app
 							</v-btn>
@@ -70,7 +70,7 @@
 							<v-btn
 								class="ma-2"
 								color="error"
-								href="/db"
+								href="/dashboard"
 							>
 								Take me there
 							</v-btn>						

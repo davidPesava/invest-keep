@@ -1,7 +1,6 @@
 <template>
 	<v-layout
 		column
-		justify-start
 		align-start
 		class="pl-6"	
 	>

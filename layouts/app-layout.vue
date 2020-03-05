@@ -65,7 +65,7 @@ export default {
         {
           icon: 'mdi-view-dashboard',
           title: 'Dashboard',
-          to: '/db',
+          to: '/dashboard',
         },
         {
           icon: 'mdi-chart-line',
