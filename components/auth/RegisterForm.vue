@@ -25,7 +25,6 @@
 					v-model="registerForm.password"
 					:append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
 					:type="showPassword ? 'text' : 'password'"
-					name="input-10-1"
 					label="Password"
 					hint="At least 6 characters"
 					counter
@@ -36,7 +35,6 @@
 					v-model="registerForm.passwordConfirm"
 					:append-icon="showPassword2 ? 'mdi-eye' : 'mdi-eye-off'"
 					:type="showPassword2 ? 'text' : 'password'"
-					name="input-10-1"
 					label="Password confirmation"
 					hint="At least 6 characters"
 					counter

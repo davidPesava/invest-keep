@@ -10,11 +10,8 @@
 		name: "LogOutButton",
 		methods: {
 			logOut() {
-				this.$router.go('/')
-				let val = null
-				this.$store.commit('users/setCurrentUser', val)
-				firebase.auth().signOut()
-				
+				firebase.auth().signOut()		
+				this.$router.go('/')		
 			}
 		},
 	}

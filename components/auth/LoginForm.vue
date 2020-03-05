@@ -20,7 +20,6 @@
 					v-model="loginForm.password"
 					:append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
 					:type="showPassword ? 'text' : 'password'"
-					name="input-10-1"
 					label="Password"
 					hint="At least 6 characters"
 					counter
