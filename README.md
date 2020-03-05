@@ -2,9 +2,13 @@
 
 > InvestKeep - David Pešava Bachleor work
 
-##Enviroment
+## Enviroment
 
 > Nodejs
+
+## Development setup
+
+> In /store/config.js set your API token from [World Trading Data](https://www.worldtradingdata.com/)
 
 ## Build Setup
 
