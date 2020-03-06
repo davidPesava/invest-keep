@@ -105,8 +105,9 @@
 						this.dialog = false
 					},
 					addStockToUser(newSymbol) {
-						this.symbols.push(newSymbol)
-						firebase.firestore().collection('users').doc(this.currentUser.uid).update({stocks: this.symbols})
+						let hel =  JSON.parse(JSON.stringify(this.symbols)) 
+						hel.push(newSymbol)	
+						firebase.firestore().collection('users').doc(this.currentUser.uid).update({stocks: hel})
 					}
 				},
 				data() {
