@@ -20,6 +20,10 @@
 				middleware: 'router-auth',
 				components: {GChart},
 				created: function () { 
+					this.initStocks()
+				},
+				methods: {
+					initStocks(){
 						this.currentUser = this.$store.state.users.currentUser
 						let allUsers = firebase.firestore().collection('users').doc(this.currentUser.uid)
 						let getDoc = allUsers.get()
@@ -29,18 +33,13 @@
 							 } else {
 								let val = JSON.parse(JSON.stringify(doc.data()))
 								this.$store.commit('users/setCredentials', val)	
-
-
 								//Fetch all stock to render into graph
 								this.fetchStocks(val.stocks) 
-
 								//Fetch users stocks to be used next
 								this.symbols = val.stocks
 							 }
 						 })
-						
-				},
-				methods: {
+					},
 					async fetchStocks(usersSymbols) {
 						let symbols = usersSymbols
 						const fetchedStocks = await this.$axios.$get(this.$store.state.config.env.baseApiUrl+'stock?symbol='+symbols+ '&api_token='+this.$store.state.config.env.apiToken)
