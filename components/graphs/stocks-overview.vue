@@ -144,6 +144,7 @@
 					async fetchStockData(symbols) {
 						const fetchedStocks = await this.$axios.$get(this.$store.state.config.env.baseApiUrl+'stock?symbol='+symbols+ '&api_token='+this.$store.state.config.env.apiToken)
 						return fetchedStocks.data
+						
 					}
 				},
 				props: {

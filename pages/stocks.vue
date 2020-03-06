@@ -45,7 +45,13 @@
 												</v-btn>								
 											</div>
 										</div>
-										<hr>					
+										<hr>
+										<v-snackbar
+										v-model="snackbar"
+										:timeout="2000"
+										>
+										<div class="color--text">Added to portfolio. You can close window now</div>
+										</v-snackbar>					
 								</div>
 							</v-col>
 						</v-row>
@@ -101,17 +107,18 @@
 						this.searchForm.results = searchResults.data
 					},
 					closeSearchForm() {
-						this.initStocks()
-						this.dialog = false
+						this.$router.go('/dashboard')
 					},
 					addStockToUser(newSymbol) {
 						let hel =  JSON.parse(JSON.stringify(this.symbols)) 
 						hel.push(newSymbol)	
 						firebase.firestore().collection('users').doc(this.currentUser.uid).update({stocks: hel})
+						this.snackbar = true
 					}
 				},
 				data() {
 						return {
+							snackbar: false,
 							dialog: false,
 							currentUser: "",
 							symbols: [],
