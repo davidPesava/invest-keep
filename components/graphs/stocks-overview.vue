@@ -4,12 +4,21 @@
 			<v-col cols="12" v-for="company in chatHistoryData" class="mb-5">
 				<v-card>
 					<v-card-title>
-						{{ company.baseCreditials[0].name }} 
-						({{ company.baseCreditials[0].symbol }})
-						<div
-						class="ml-2"
-						:class="[parseFloat(company.baseCreditials[0].day_change) > 0 ?  'green--text' : 'red--text']">
-							{{ company.baseCreditials[0].day_change }}
+						<div class="full-width d-flex justify-space-between">
+							<div class="d-flex">
+								<div>
+									{{ company.baseCreditials[0].name }} 
+									({{ company.baseCreditials[0].symbol }})
+								</div>
+								<div
+									class="ml-2"
+									:class="[parseFloat(company.baseCreditials[0].day_change) > 0 ?  'green--text' : 'red--text']">
+									{{ company.baseCreditials[0].day_change }}
+								</div>
+							</div>	
+							<v-btn @click="removeStock(company.baseCreditials[0].symbol)" class="mx-2" small dark color="error">
+								<v-icon dark>mdi-close</v-icon>
+							</v-btn>												
 						</div>
 					</v-card-title>
 					<v-card-text>
@@ -104,6 +113,7 @@
 <script>
 		import firebase from 'firebase'
 		import moment from 'moment'
+		var _ = require('lodash');
 		import { GChart } from 'vue-google-charts'
 
 		export default {
@@ -145,7 +155,13 @@
 						const fetchedStocks = await this.$axios.$get(this.$store.state.config.env.baseApiUrl+'stock?symbol='+symbols+ '&api_token='+this.$store.state.config.env.apiToken)
 						return fetchedStocks.data
 						
-					}
+					},
+					removeStock(symbol) {
+						let hel =  JSON.parse(JSON.stringify(this.symbols)) 
+						let cleared = _.without(hel, symbol) 
+						firebase.firestore().collection('users').doc("4mawUgCR0dOxI0Kzo7JQwJ2TwNr1").update({stocks: cleared})
+						//this.snackbar = true
+					}					
 				},
 				props: {
 					symbols: Array
