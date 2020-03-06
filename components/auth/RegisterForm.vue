@@ -75,6 +75,7 @@
 								uid: user.user.uid,
 								email: this.registerForm.email,
 								name: this.registerForm.name,
+								stocks: []
 							}
 							//Put data into Firestore
 							firebase.firestore().collection('users').doc(user.user.uid).set(account)
