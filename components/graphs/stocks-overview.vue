@@ -1,5 +1,5 @@
 <template>
-	<div v-if="chatHistoryData.length > 0">
+	<div>
 		<v-row>
 			<v-col cols="12" v-for="company in chatHistoryData" class="mb-5">
 				<v-card>
@@ -110,8 +110,8 @@
 				name: "stocksOverview",
 				components: {GChart},
 				created: function () { 					
-					if(this.symbols.length > 0 ) {
-						let arraySymbols = this.symbols.split(",")
+						let arraySymbols = this.symbols
+						console.log(arraySymbols)
 						arraySymbols.forEach((element, index, array) => {	
 							let historyArray = this.fetchHistory(element).then(
 								singleHistory => {
@@ -119,7 +119,7 @@
 								}
 							)
 						})	
-					}								
+											
 				},
 				methods: {
 					async fetchHistory(usersSymbols) {
@@ -148,7 +148,7 @@
 					}
 				},
 				props: {
-					symbols: String
+					symbols: Array
 				},
 				data() {
 						return {

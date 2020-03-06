@@ -5,7 +5,10 @@
 		class="pl-6"
 	>
 		<h1 class="mb-5">Stocks</h1> 
-			<stocks-overview v-if="symbols" :symbols="symbols" /> 
+			<stocks-overview 
+				v-if="symbols.length"
+				:symbols="symbols"
+			/> 
 		<v-row>
 			<v-col cols="6">
 			
@@ -42,7 +45,7 @@
 				data() {
 						return {
 							currentUser: '',
-							symbols: '',
+							symbols: [],
 						}
 				},
 		}

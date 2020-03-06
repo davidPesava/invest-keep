@@ -21,7 +21,7 @@
 				components: {GChart},
 				created: function () { 					
 					if(this.symbols.length > 0 ) {
-						let arraySymbols = this.symbols.split(",")
+						let arraySymbols = this.symbols
 						arraySymbols.forEach((element, index, array) => {	
 							let historyArray = this.fetchHistory(element).then(
 								singleHistory => {
@@ -51,7 +51,7 @@
 					},
 				},
 				props: {
-					symbols: String
+					symbols: Array
 				},
 				data() {
 						return {
