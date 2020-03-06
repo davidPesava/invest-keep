@@ -1,9 +1,9 @@
 <template>
 	<div>
-		<v-row>
+		<v-row v-if="chatHistoryData.length > 0">
 			<v-col cols="12" v-for="company in chatHistoryData" class="mb-5">
 				<v-card>
-					<v-card-title v-if="company.baseCreditials">
+					<v-card-title>
 						{{ company.baseCreditials[0].name }} 
 						({{ company.baseCreditials[0].symbol }})
 						<div
@@ -13,7 +13,7 @@
 						</div>
 					</v-card-title>
 					<v-card-text>
-						<v-row>
+						<v-row >
 							<v-col cols="6">
 								<v-row>
 									<v-col cols="5">
@@ -111,7 +111,6 @@
 				components: {GChart},
 				created: function () { 					
 						let arraySymbols = this.symbols
-						console.log(arraySymbols)
 						arraySymbols.forEach((element, index, array) => {	
 							let historyArray = this.fetchHistory(element).then(
 								singleHistory => {
