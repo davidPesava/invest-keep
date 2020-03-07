@@ -5,9 +5,10 @@
 		class="pl-6"
 	>
 	<h1>Currencies (FOREX)</h1>
+	<p>Data shown in boxes are real time. For history data click on box.</p>
 	<v-row class="full-width">
 		<v-col v-if="currencies" v-for="exchange in currencies" cols="6" md="4" lg="3">
-			<v-card>
+			<v-card @click="openHistoryDialiog(exchange.from,exchange.to)">
 				<v-card-title>
 					1 {{ exchange.from }}
 					to
@@ -19,16 +20,27 @@
 			</v-card>
 		</v-col>
 	</v-row>
+	<v-dialog
+      v-model="isHistoryOpen"
+      max-width="600"
+    >
+		<v-card>
+			<v-card-title>{{ historyDataDesc }}</v-card-title>
+			<GChart type="LineChart" :data="historyData"  :options="chartOptions.chart"/>
+		</v-card>
+	</v-dialog>
 	</v-layout>
 </template>
 
 <script>
 	import firebase from 'firebase'
 	import { GChart } from 'vue-google-charts'
+	import moment from 'moment'
 
 	export default {
 		layout: 'app-layout',
 		middleware: 'router-auth',
+		components: {GChart},
 		created: function () { 
 			this.initCurrencies()
 			
@@ -37,6 +49,14 @@
 			return {
 				currencies: [],
 				currentUser: {},
+				isHistoryOpen: false,
+				historyData: [],
+				historyDataDesc: '',
+				chartOptions: {
+					chart: {
+					width: 500,
+					}
+				}
 			}
 		},
 		methods: {
@@ -70,6 +90,23 @@
 				const searchResults = await this.$axios.$get(this.$store.state.config.env.baseApiUrl+'forex?base='+curFrom+'&convert_to='+curTot+'&api_token='+this.$store.state.config.env.apiToken)
 				return searchResults.data
 			},
+			async openHistoryDialiog(from,to) {
+				this.historyData = []
+				const fetchedHistory = await this.$axios.$get(this.$store.state.config.env.baseApiUrl+'forex_history?base='+from+'&convert_to='+to+'&api_token='+this.$store.state.config.env.apiToken) 
+				let outerHelper = []
+				this.historyDataDesc = "History data of last 7 days - "+from + ' - ' + 'to'
+				outerHelper.push(['Date','Price'])
+				Object.keys(fetchedHistory.history).forEach((key,index) => {
+					if(index < 7) {
+						let helper = []
+						helper.push(moment(key).format('ll'))
+						helper.push(parseFloat(fetchedHistory.history[key]))
+						outerHelper.push(helper)
+					}
+				})
+				this.historyData = outerHelper
+				this.isHistoryOpen = true
+			}
 		},		
 	}
 </script>

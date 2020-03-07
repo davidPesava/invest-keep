@@ -100,7 +100,7 @@
 								</v-row>
 							</v-col>
 							<v-col cols="6">
-								<GChart type="LineChart" :data="company.data"  :options="chartOptions.chart" class="mb-5 graph" />
+								<GChart type="LineChart" :data="company.data"  :options="chartOptions.chart" class="mb-5" />
 							</v-col>
 						</v-row>
 					</v-card-text>
