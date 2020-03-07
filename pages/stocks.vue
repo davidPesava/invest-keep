@@ -53,6 +53,11 @@
 										<div class="color--text">Added to portfolio. You can close window now</div>
 										</v-snackbar>					
 								</div>
+								<div v-if="searchForm.noResults">
+									<v-alert type="error" class="mt-3">
+    									 <strong>No results found, try again different term</strong>
+  									</v-alert>
+								</div>
 							</v-col>
 						</v-row>
 					</v-col>
@@ -96,7 +101,6 @@
 							 } else {
 								let val = JSON.parse(JSON.stringify(doc.data()))
 								this.$store.commit('users/setCredentials', val)	
-								//Fetch users stocks to be used next
 								this.symbols = val.stocks
 							 }
 						 })
@@ -104,7 +108,13 @@
 					async searchStock() {
 						let searchingTerm = this.searchForm.term
 						const searchResults = await this.$axios.$get(this.$store.state.config.env.baseApiUrl+'stock_search?search_term='+searchingTerm+ '&limit=5&api_token='+this.$store.state.config.env.apiToken)
-						this.searchForm.results = searchResults.data
+						if(Object.keys(searchResults.data).length > 0) {
+							this.searchForm.noResults = false
+							this.searchForm.results = searchResults.data
+						} else {
+							this.searchForm.results = []
+							this.searchForm.noResults = true
+						}			
 					},
 					closeSearchForm() {
 						this.$router.go('/dashboard')
@@ -124,7 +134,8 @@
 							symbols: [],
 							searchForm: {
 								term: "",
-								results: []
+								results: [],
+								noResults: false
 							},
 						}
 				},
