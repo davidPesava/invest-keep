@@ -26,7 +26,7 @@
     >
 		<v-card>
 			<v-card-title>{{ historyDataDesc }}</v-card-title>
-			<GChart type="LineChart" :data="historyData"  :options="chartOptions.chart"/>
+			<GChart type="LineChart" :data="historyData"  :options="chartOptions.chart" class="pb-5"/>
 		</v-card>
 	</v-dialog>
 	</v-layout>
@@ -94,7 +94,7 @@
 				this.historyData = []
 				const fetchedHistory = await this.$axios.$get(this.$store.state.config.env.baseApiUrl+'forex_history?base='+from+'&convert_to='+to+'&api_token='+this.$store.state.config.env.apiToken) 
 				let outerHelper = []
-				this.historyDataDesc = "History data of last 7 days - "+from + ' - ' + 'to'
+				this.historyDataDesc = "History data of last 7 days "+from + ' - ' + to
 				outerHelper.push(['Date','Price'])
 				Object.keys(fetchedHistory.history).forEach((key,index) => {
 					if(index < 7) {
