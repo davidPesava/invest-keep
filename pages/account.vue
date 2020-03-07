@@ -85,7 +85,6 @@
 		middleware: 'router-auth',
 		created: function() {
 			this.currentUser = this.$store.state.users.currentUser
-			console.log(this.currentUser)
 		},
 		data() {
 			return {

@@ -159,8 +159,16 @@
 					removeStock(symbol) {
 						let hel =  JSON.parse(JSON.stringify(this.symbols)) 
 						let cleared = _.without(hel, symbol) 
-						firebase.firestore().collection('users').doc("4mawUgCR0dOxI0Kzo7JQwJ2TwNr1").update({stocks: cleared})
-						//this.snackbar = true
+						firebase.firestore().collection('users').doc(this.currentUser.uid).update({stocks: cleared})
+						this.chatHistoryData = [] 
+						let arraySymbols = cleared
+						arraySymbols.forEach((element, index, array) => {	
+							let historyArray = this.fetchHistory(element).then(
+								singleHistory => {
+									this.chatHistoryData.push(singleHistory)
+								}
+							)
+						})
 					}					
 				},
 				props: {
@@ -168,6 +176,7 @@
 				},
 				data() {
 						return {
+							currentUser: this.$store.state.users.currentUser,
 							stockData: {},
 							chatHistoryData: [],
 							chatHistoryDataDays: 10,
