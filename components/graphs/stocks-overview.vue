@@ -139,7 +139,7 @@
 							outerHelper.baseCreditials = v
 						});
 						outerHelper.data = []
-						outerHelper.data.push(['Date','Price']) 
+						
 						const fetchedHistory = await this.$axios.$get(this.$store.state.config.env.baseApiUrl+'history?symbol='+symbols+'&api_token='+this.$store.state.config.env.apiToken) 
 						Object.keys(fetchedHistory.history).forEach((key,index) => {
 							if(index < this.chatHistoryDataDays) {
@@ -149,6 +149,8 @@
 								outerHelper.data.push(helper)
 							}
 						})
+						outerHelper.data.push(['Date','Price']) 
+						outerHelper.data = outerHelper.data.reverse()
 						return outerHelper						
 					},
 					async fetchStockData(symbols) {

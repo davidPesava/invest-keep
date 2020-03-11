@@ -94,8 +94,7 @@
 				this.historyData = []
 				const fetchedHistory = await this.$axios.$get(this.$store.state.config.env.baseApiUrl+'forex_history?base='+from+'&convert_to='+to+'&api_token='+this.$store.state.config.env.apiToken) 
 				let outerHelper = []
-				this.historyDataDesc = "History data of last 7 days "+from + ' - ' + to
-				outerHelper.push(['Date','Price'])
+				this.historyDataDesc = "History data of last 7 days "+from + ' - ' + to	
 				Object.keys(fetchedHistory.history).forEach((key,index) => {
 					if(index < 7) {
 						let helper = []
@@ -104,7 +103,8 @@
 						outerHelper.push(helper)
 					}
 				})
-				this.historyData = outerHelper
+				outerHelper.push(['Date','Price'])
+				this.historyData = outerHelper.reverse()
 				this.isHistoryOpen = true
 			}
 		},		
