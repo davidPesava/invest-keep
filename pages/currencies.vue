@@ -5,10 +5,10 @@
 		class="pl-6"
 	>
 	<h1>Currencies (FOREX)</h1>
-	<p>Data shown in boxes are real time. For history data click on box.</p>
 	<v-row class="full-width">
 		<v-col v-if="currencies" v-for="exchange in currencies" cols="6" md="4" lg="3">
-			<v-card @click="openHistoryDialiog(exchange.from,exchange.to)">
+			<v-card>
+				<v-card-text class="pb-0">Actual</v-card-text>
 				<v-card-title>
 					1 {{ exchange.from }}
 					to
@@ -17,6 +17,12 @@
 				<v-card-subtitle>
 					<strong>{{ exchange.value }}</strong>
 				</v-card-subtitle>
+				<v-card-text class="pb-0 pl-2">History</v-card-text>
+				<v-card-actions>
+					<v-btn @click="openHistoryDialiog(exchange.from,exchange.to,7)" x-small color="primary" dark>7 days</v-btn>
+					<v-btn @click="openHistoryDialiog(exchange.from,exchange.to,14)" x-small color="primary" dark>14 days</v-btn>
+					<v-btn @click="openHistoryDialiog(exchange.from,exchange.to,30)" x-small color="primary" dark>30 days</v-btn>
+				</v-card-actions>
 			</v-card>
 		</v-col>
 	</v-row>
@@ -90,13 +96,13 @@
 				const searchResults = await this.$axios.$get(this.$store.state.config.env.baseApiUrl+'forex?base='+curFrom+'&convert_to='+curTot+'&api_token='+this.$store.state.config.env.apiToken)
 				return searchResults.data
 			},
-			async openHistoryDialiog(from,to) {
+			async openHistoryDialiog(from,to,days) {
 				this.historyData = []
 				const fetchedHistory = await this.$axios.$get(this.$store.state.config.env.baseApiUrl+'forex_history?base='+from+'&convert_to='+to+'&api_token='+this.$store.state.config.env.apiToken) 
 				let outerHelper = []
-				this.historyDataDesc = "History data of last 7 days "+from + ' - ' + to	
+				this.historyDataDesc = "History data of last "+ days +" days "+from + ' - ' + to	
 				Object.keys(fetchedHistory.history).forEach((key,index) => {
-					if(index < 7) {
+					if(index < days) {
 						let helper = []
 						helper.push(moment(key).format('ll'))
 						helper.push(parseFloat(fetchedHistory.history[key]))
