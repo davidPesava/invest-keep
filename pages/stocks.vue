@@ -6,7 +6,7 @@
 	>
 		<v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition"> 
 			<v-card>
-				<div class="d-flex justify-space-between align-items-center full-width pt-4 px-5">
+				<div class="d-flex justify-space-between align-items-center full-width px-5 pt-4">
 					<h2>Search for stock</h2>
 					<v-btn @click="closeSearchForm" class="mx-2" large dark color="error">
 						<v-icon dark>mdi-close</v-icon>
@@ -50,7 +50,7 @@
 										v-model="snackbar"
 										:timeout="2000"
 										>
-										<div class="color--text">Added to portfolio. You can close window now</div>
+											<div class="color--text">Added to portfolio. You can close window now</div>
 										</v-snackbar>					
 								</div>
 								<div v-if="searchForm.noResults">
@@ -117,7 +117,7 @@
 						}			
 					},
 					closeSearchForm() {
-						this.$router.go('/dashboard')
+						this.$router.go('/stocks')
 					},
 					addStockToUser(newSymbol) {
 						let hel =  JSON.parse(JSON.stringify(this.symbols)) 
