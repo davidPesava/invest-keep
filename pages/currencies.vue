@@ -185,7 +185,12 @@
 				this.$router.go('/currencies')
 			},
 			removeRate(fullName) {
-				console.log(fullName)
+				let helper = this.currencies
+				helper = helper.filter(function( obj ) {
+ 					return obj.full !== fullName
+				})
+				this.currencies = helper
+				firebase.firestore().collection('users').doc(this.currentUser.uid).update({currencies: helper})
 			}
 		},		
 	}
