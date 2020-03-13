@@ -5,7 +5,6 @@
 		class="pl-6"
 	>
 		<h1 class="mb-5">Dashboard</h1> 
-		<h3 class="mb-3">Your portfolio now includes:</h3>
 		<GChart v-if="chatLoadedData.length > 0" type="Table" :data="chatLoadedData" :options="chartOptions.base" class="mb-5"/>    
 		<GChart v-if="chatLoadedData" type="ColumnChart" :data="chatLoadedData" :options="chartOptions.base" class="mb-5"/>   
 	</v-layout>
@@ -60,16 +59,12 @@
 				data() {
 						return {
 							currentUser: '',
-							loadedStocks: {},
 							symbols: '',
 							companies: [],
 							chatLoadedData: [],
-							chatHistoryData: [],
-							chatHistoryDataDays: 14,
 							chartOptions: {
 								base: {
 									title: 'Base Stocks prices',
-									subtitle: 'Sales, Expenses, and Profit: 2014-2017',
 									crosshair: {trigger: 'both'},
 									width: 900,
 								}
