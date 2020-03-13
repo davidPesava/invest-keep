@@ -105,8 +105,8 @@
 				historyData: [],
 				historyDataDesc: '',
 				currencyForm: {
-					fromItems: ['EUR','USD','GBP','YEN','CHF','CNY'],
-					toItems: ['EUR','USD','GBP','YEN','CHF','CNY'],
+					fromItems: ['EUR','USD','GBP','YEN','CHF','CNY','CZK'],
+					toItems: ['EUR','USD','GBP','YEN','CHF','CNY','CZK'],
 					selectedFrom: '',
 					selectedTo: '',
 

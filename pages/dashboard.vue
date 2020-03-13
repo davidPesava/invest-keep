@@ -4,9 +4,15 @@
 		align-start
 		class="pl-6"
 	>
-		<h1 class="mb-5">Dashboard</h1> 
+		<h1 class="mb-5">Dashboards</h1> 
+		<v-tabs light class="mb-6">
+			<div class="d-flex align-center">Dashboards:</div>
+			<v-tab>Primary</v-tab>
+			<v-tab>Secondary</v-tab>
+			<v-tab>Tertiary</v-tab>
+		</v-tabs>
 		<GChart v-if="chatLoadedData.length > 0" type="Table" :data="chatLoadedData" :options="chartOptions.base" class="mb-5"/>    
-		<GChart v-if="chatLoadedData" type="ColumnChart" :data="chatLoadedData" :options="chartOptions.base" class="mb-5"/>   
+		<GChart v-if="chatLoadedData" type="SteppedAreaChart" :data="chatLoadedData" :options="chartOptions.base" class="mb-5"/>   
 	</v-layout>
 </template>
 

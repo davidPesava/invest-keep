@@ -64,7 +64,7 @@ export default {
         },
         {
           icon: 'mdi-view-dashboard',
-          title: 'Dashboard',
+          title: 'Dashboards',
           to: '/dashboard',
         },
         {
