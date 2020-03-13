@@ -13,7 +13,7 @@
 		</v-tabs>
 		<primary v-if="dashboards.primary" :chatLoadedData="chatLoadedData" :graphTypes="graphTypes" />
 		<secondary v-if="dashboards.secondary" :chatLoadedData="chatLoadedData" :graphTypes="graphTypes" />
-		<earnings v-if="dashboards.earnings" />
+		<earnings v-if="dashboards.earnings" :symbols = symbols />
 	</v-layout>
 </template>
 
