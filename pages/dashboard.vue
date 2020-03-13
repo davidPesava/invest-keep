@@ -7,24 +7,27 @@
 		<h1 class="mb-5">Dashboards</h1> 
 		<v-tabs light class="mb-6">
 			<div class="d-flex align-center">Dashboards:</div>
-			<v-tab>Primary</v-tab>
-			<v-tab>Secondary</v-tab>
-			<v-tab>Tertiary</v-tab>
+			<v-tab @click="changeToPrimary()">Primary</v-tab>
+			<v-tab @click="changeToSecondary()">Secondary</v-tab>
+			<v-tab @click="changeToEarnings()">Earnings</v-tab>
 		</v-tabs>
-		<div v-for="graph in graphTypes">
-			<GChart v-if="chatLoadedData" :type="graph" :data="chatLoadedData" :options="chartOptions.base" class="mb-5"/>  
-		</div>
+		<primary v-if="dashboards.primary" :chatLoadedData="chatLoadedData" :graphTypes="graphTypes" />
+		<secondary v-if="dashboards.secondary" :chatLoadedData="chatLoadedData" :graphTypes="graphTypes" />
+		<earnings v-if="dashboards.earnings" />
 	</v-layout>
 </template>
 
 <script>
 		import firebase from 'firebase'
 		import { GChart } from 'vue-google-charts'
+		import primary from "../components/dashboards/primary"
+		import secondary from "../components/dashboards/secondary"
+		import earnings from "../components/dashboards/earnings"
 
 		export default {
 				layout: 'app-layout',
 				middleware: 'router-auth',
-				components: {GChart},
+				components: {GChart, primary, secondary, earnings},
 				created: function () { 
 					this.initStocks()
 				},
@@ -61,10 +64,29 @@
 							this.companies.push(element.name)
 							this.chatLoadedData.push(helper)
 						});
+					},changeToPrimary() {
+						this.dashboards.primary = true
+						this.dashboards.secondary = false
+						this.dashboards.earnings = false
 					},
+					changeToSecondary() {
+						this.dashboards.primary = false
+						this.dashboards.secondary = true
+						this.dashboards.earnings = false
+					},
+					changeToEarnings() {
+						this.dashboards.primary = false
+						this.dashboards.secondary = false
+						this.dashboards.earnings = true
+					}					
 				},
 				data() {
 						return {
+							dashboards: {
+								primary: true,
+								secondary: false,
+								earnings: false,
+							},
 							graphTypes: ['Table','BarChart','LineChart','ColumnChart','Histogram','AreaChart','PieChart','BubbleChart','CandlestickChart','SteppedAreaChart','ScatterChart'],
 							currentUser: '',
 							symbols: '',
