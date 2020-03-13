@@ -97,8 +97,8 @@
 		},
 		data () {
 			return {
-				snackbar: true,
-				dialog: false,				
+				snackbar: false,
+				dialog: false,
 				currencies: [],
 				currentUser: {},
 				isHistoryOpen: false,

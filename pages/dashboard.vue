@@ -11,8 +11,9 @@
 			<v-tab>Secondary</v-tab>
 			<v-tab>Tertiary</v-tab>
 		</v-tabs>
-		<GChart v-if="chatLoadedData.length > 0" type="Table" :data="chatLoadedData" :options="chartOptions.base" class="mb-5"/>    
-		<GChart v-if="chatLoadedData" type="SteppedAreaChart" :data="chatLoadedData" :options="chartOptions.base" class="mb-5"/>   
+		<div v-for="graph in graphTypes">
+			<GChart v-if="chatLoadedData" :type="graph" :data="chatLoadedData" :options="chartOptions.base" class="mb-5"/>  
+		</div>
 	</v-layout>
 </template>
 
@@ -64,6 +65,7 @@
 				},
 				data() {
 						return {
+							graphTypes: ['Table','BarChart','LineChart','ColumnChart','Histogram','AreaChart','PieChart','BubbleChart','CandlestickChart','SteppedAreaChart','ScatterChart'],
 							currentUser: '',
 							symbols: '',
 							companies: [],
