@@ -119,16 +119,15 @@
 		export default {
 				name: "stocksOverview",
 				components: {GChart},
-				created: function () { 					
+				created: function () {
 						let arraySymbols = this.symbols
-						arraySymbols.forEach((element, index, array) => {	
+						arraySymbols.forEach((element, index, array) => {
 							let historyArray = this.fetchHistory(element).then(
 								singleHistory => {
 									this.chatHistoryData.push(singleHistory)
 								}
 							)
-						})	
-											
+						})
 				},
 				methods: {
 					async fetchHistory(usersSymbols) {
@@ -139,7 +138,6 @@
 							outerHelper.baseCreditials = v
 						});
 						outerHelper.data = []
-						
 						const fetchedHistory = await this.$axios.$get(this.$store.state.config.env.baseApiUrl+'history?symbol='+symbols+'&api_token='+this.$store.state.config.env.apiToken) 
 						Object.keys(fetchedHistory.history).forEach((key,index) => {
 							if(index < this.chatHistoryDataDays) {
@@ -151,27 +149,26 @@
 						})
 						outerHelper.data.push(['Date','Price']) 
 						outerHelper.data = outerHelper.data.reverse()
-						return outerHelper						
+						return outerHelper
 					},
 					async fetchStockData(symbols) {
 						const fetchedStocks = await this.$axios.$get(this.$store.state.config.env.baseApiUrl+'stock?symbol='+symbols+ '&api_token='+this.$store.state.config.env.apiToken)
 						return fetchedStocks.data
-						
 					},
 					removeStock(symbol) {
-						let hel =  JSON.parse(JSON.stringify(this.symbols)) 
-						let cleared = _.without(hel, symbol) 
+						let hel =  JSON.parse(JSON.stringify(this.symbols))
+						let cleared = _.without(hel, symbol)
 						firebase.firestore().collection('users').doc(this.currentUser.uid).update({stocks: cleared})
-						this.chatHistoryData = [] 
+						this.chatHistoryData = []
 						let arraySymbols = cleared
-						arraySymbols.forEach((element, index, array) => {	
+						arraySymbols.forEach((element, index, array) => {
 							let historyArray = this.fetchHistory(element).then(
 								singleHistory => {
 									this.chatHistoryData.push(singleHistory)
 								}
 							)
 						})
-					}					
+					}
 				},
 				props: {
 					symbols: Array
