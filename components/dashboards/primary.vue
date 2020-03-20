@@ -1,8 +1,9 @@
 <template>
 	<div>
 		<h2 class="mb-4">Primary dashboard</h2>
-		<div v-for="graph in graphTypes">
-			<GChart :type="graph" :data="chatLoadedData" :options="chartOptions" class="mb-5"/>  
+		<div v-for="graph in graphs">
+			<h3><strong class="primary--text">{{ graph.name }}</strong></h3>
+			<GChart :type="graph.graphType" :data="graph.data" :options="chartOptions" class="mb-5"/>  
 		</div>
 	</div>
 </template>
@@ -13,14 +14,17 @@
 		name: "primary",
 		components: {GChart},
 		props: {
-			chatLoadedData: {
-				type: Array,
-			},
-			graphTypes: {
-				type: Array,
-			},
-			chartOptions: {
-				type: Object,
+			graphs: {
+				type: Array
+			}
+		},
+		data() {
+			return {
+				chartOptions: {
+							crosshair: {trigger: 'both'},
+							width: 1000,
+
+				}				
 			}
 		}
 	}
