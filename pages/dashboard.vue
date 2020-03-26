@@ -9,11 +9,9 @@
 			<div class="d-flex align-center">Dashboards:</div>
 			<v-tab @click="changeToPrimary()">Primary</v-tab>
 			<v-tab @click="changeToSecondary()">Secondary</v-tab>
-			<v-tab @click="changeToEarnings()">Earnings</v-tab>
 		</v-tabs>
 		<primary v-if="dashboards.primary" :graphs="fetchedDashboardsData.primary" />
-		<!--<secondary v-if="dashboards.secondary" :chatLoadedData="chatLoadedData" :graphTypes="graphTypes" />
-		<earnings v-if="dashboards.earnings" :symbols = symbols /> -->
+		<!--<secondary v-if="dashboards.secondary" :chatLoadedData="chatLoadedData" :graphTypes="graphTypes" />-->
 	</v-layout>
 </template>
 
@@ -22,12 +20,11 @@
 		import { GChart } from 'vue-google-charts'
 		import primary from "../components/dashboards/primary"
 		import secondary from "../components/dashboards/secondary"
-		import earnings from "../components/dashboards/earnings"
 
 		export default {
 				layout: 'app-layout',
 				middleware: 'router-auth',
-				components: {GChart, primary, secondary, earnings},
+				components: {GChart, primary, secondary},
 				created: function () {
 						this.initStocks()
 				},
@@ -187,25 +184,17 @@
 					changeToPrimary() {
 						this.dashboards.primary = true
 						this.dashboards.secondary = false
-						this.dashboards.earnings = false
 					},
 					changeToSecondary() {
 						this.dashboards.primary = false
 						this.dashboards.secondary = true
-						this.dashboards.earnings = false
-					},
-					changeToEarnings() {
-						this.dashboards.primary = false
-						this.dashboards.secondary = false
-						this.dashboards.earnings = true
-					}					
+					},					
 				},
 				data() {
 						return {
 							dashboards: {
 								primary: true,
 								secondary: false,
-								earnings: false,
 							},
 							dashboardsData: {
 								primary: [],
