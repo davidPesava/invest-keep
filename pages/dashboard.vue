@@ -11,7 +11,7 @@
 			<v-tab @click="changeToSecondary()">Secondary</v-tab>
 		</v-tabs>
 		<primary v-if="dashboards.primary" :graphs="fetchedDashboardsData.primary" />
-		<!--<secondary v-if="dashboards.secondary" :chatLoadedData="chatLoadedData" :graphTypes="graphTypes" />-->
+		<secondary v-if="dashboards.secondary" :graphs="fetchedDashboardsData.secondary" />
 	</v-layout>
 </template>
 
@@ -45,13 +45,17 @@
 									let localGraphsArray = this.fetchGraph(element).then(
 									singleGraph => {
 										this.fetchedDashboardsData.primary.push(singleGraph)
-										console.log(this.fetchedDashboardsData.primary)
 									}
 									)
 								})
-
-
-								
+								let arrayGraphs2 = val.secondary
+								arrayGraphs2.forEach((element2) => {
+									let localGraphsArray2 = this.fetchGraph(element2).then(
+									singleGraph2 => {
+										this.fetchedDashboardsData.secondary.push(singleGraph2)
+									}
+									)
+								})								
 							 }
 						 })
 					},
@@ -198,9 +202,11 @@
 							},
 							dashboardsData: {
 								primary: [],
+								secondary: [],
 							},
 							fetchedDashboardsData: {
 								primary: [],
+								secondary: [],
 							},
 							graphTypes: ['Table','BarChart','LineChart','ColumnChart','Histogram','AreaChart','PieChart','BubbleChart','CandlestickChart','SteppedAreaChart','ScatterChart'],
 							currentUser: '',
