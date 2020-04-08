@@ -13,7 +13,7 @@
 	</div>
 	<v-row>
 		<v-col cols="12">
-			<v-dialog v-model="dialog" fullscreen transition="dialog-bottom-transition"> 
+			<v-dialog v-model="dialog" transition="dialog-bottom-transition"> 
 				<v-card class="py-6 px-6">
 					<v-btn @click="closeForm()" class="mx-2" dark color="error">
 						<v-icon dark>mdi-close</v-icon>
