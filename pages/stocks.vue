@@ -30,7 +30,7 @@
 								</v-btn>
 							</v-col>
 							<v-col cols="12">
-								<div 
+								<div
 									v-if="searchForm.results"
 									v-for="stock in searchForm.results">
 										<div class="d-flex justify-space-between">

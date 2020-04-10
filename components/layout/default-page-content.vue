@@ -14,7 +14,7 @@
                                 <li>Currency data visualisation</li>
                                 <li>Custom dashboards</li>
                                 <li>Portfolio summaries</li>
-                            </ul>		
+                            </ul>
                     </div>
                 </v-col>
             </v-row>
@@ -27,32 +27,62 @@
                         <p>From web service <a href="https://www.worldtradingdata.com/" target="_blank">World Trading Data</a> that is our data provider,
                         we can offer your wide collection of Stocks and Currencies to create your visualisable portfolios.
                         It's easy, just type name of company or currency and see all that data you need.
-                        </p>		
+                        </p>
                     </div>
-                </v-col>					
+                </v-col>
                 <v-col cols="12" md="7">
                     <img src="/data.jpg" alt="InvestKeep Main" class="default-layout__cover">
                 </v-col>
             </v-row>
-        </div>	
+        </div>
         <div class="default-layout__block" id="faq">
             <v-row>
                 <h2 class="display-2 text-center d-block full-width mb-5">Frequently asked questions</h2>
                 <v-col cols="12" class="default-layout__topCover">
                     <v-expansion-panels>
-                        <v-expansion-panel
-                        v-for="(item,i) in 5"
-                        :key="i"
-                        >
-                            <v-expansion-panel-header>Question</v-expansion-panel-header>
+                        <v-expansion-panel>
+                            <v-expansion-panel-header><strong>How much does it cost?</strong></v-expansion-panel-header>
                             <v-expansion-panel-content>
-                                With long answer. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                It's completly free!
                             </v-expansion-panel-content>
                         </v-expansion-panel>
-                    </v-expansion-panels>							
+                    </v-expansion-panels>
+                </v-col>
+                <v-col cols="12">
+                    <v-expansion-panels>
+                        <v-expansion-panel>
+                            <v-expansion-panel-header><strong>Which data you can offer?</strong></v-expansion-panel-header>
+                            <v-expansion-panel-content>
+                                <p>From web service <a href="https://www.worldtradingdata.com/" target="_blank">World Trading Data</a> that is our data provider,
+                                we can offer your wide collection of Stocks and Currencies to create your visualisable portfolios.
+                                It's easy, just type name of company or currency and see all that data you need.
+                                </p>
+                            </v-expansion-panel-content>
+                        </v-expansion-panel>
+                    </v-expansion-panels>
+                </v-col>
+                <v-col cols="12">
+                    <v-expansion-panels>
+                        <v-expansion-panel>
+                            <v-expansion-panel-header><strong>Do I need registration?</strong></v-expansion-panel-header>
+                            <v-expansion-panel-content>
+                                Yes
+                            </v-expansion-panel-content>
+                        </v-expansion-panel>
+                    </v-expansion-panels>
+                </v-col>
+                <v-col cols="12">
+                    <v-expansion-panels>
+                        <v-expansion-panel>
+                            <v-expansion-panel-header><strong>Which actives types can I found in App?</strong></v-expansion-panel-header>
+                            <v-expansion-panel-content>
+                                Currently stocks and forex.
+                            </v-expansion-panel-content>
+                        </v-expansion-panel>
+                    </v-expansion-panels>
                 </v-col>
             </v-row>
-        </div>	
+        </div>
         <div class="default-layout__block" id="about">
             <v-row>
                 <h2 class="display-2 text-center d-block full-width mb-5">About</h2>
@@ -67,7 +97,7 @@
                     </div>
                 </v-col>
             </v-row>
-        </div>											
+        </div>
 	</div>
 </template>
 
@@ -85,7 +115,6 @@
 	width: 100%;
 	box-shadow: 0 2px 30px 0 rgba(0,0,0,0.1);
   }
-  
   .default-layout__menu-spacer {
 	  padding-top: 5rem
   }
@@ -96,17 +125,17 @@
 
 	@media screen and (min-width: 960px) {
 		justify-content: flex-end
-	}		
+	}
   }
 
   .defaul-layout__menu-items {
 	height: 100%;
 	display: flex;
 	align-items: center;
-	flex-direction: column;	 
+	flex-direction: column;
 
 	@media screen and (min-width: 960px) {
-		flex-direction: row;	 
+		flex-direction: row;
 	}
   }
 
@@ -126,7 +155,7 @@
 		padding: 0;
 		margin-right: 2rem;
 		padding-top: 0.7rem;
-		border-bottom: 0;	 
+		border-bottom: 0;
 	}
 
 	  &:hover {
@@ -189,15 +218,14 @@
 	  flex-direction: column;
 
 	@media screen and (min-width: 960px) {
-		flex-direction: row;	 
+		flex-direction: row;
 	}
-	
+
 	  img {
 		width: 100px;
 		height: auto;
 		margin: 3rem
 	  }
-	  
   }
 
   .full-width {

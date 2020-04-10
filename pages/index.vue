@@ -11,8 +11,8 @@
 	  					<v-icon v-else>mdi-format-list-bulleted-square</v-icon>
 					</v-btn>
 				</v-col>
-				<v-col 
-					cols="12" 
+				<v-col
+					cols="12"
 					md="6"
 					:class="isMobileMenuOpen ? 'd-xs-block' : 'd-none d-md-block'"
 				>
@@ -24,8 +24,8 @@
 						<a href="#about" class="defaul-layout__menu-item" v-smooth-scroll>About</a>
 					</div>
 				</v-col>
-				<v-col 
-					cols="12" 
+				<v-col
+					cols="12"
 					md="3"
 					:class="isMobileMenuOpen ? 'd-xs-block' : 'd-none d-md-block'"
 				>
@@ -39,7 +39,7 @@
 							>
 								To app
 							</v-btn>
-						</div>							
+						</div>
 					</div>
 					<div v-else class="default-layout__menu-buttons pr-8">
 						<v-btn
@@ -48,7 +48,7 @@
 							@click="handleRegisterForm"
 						>
 							Get started
-						</v-btn>					
+						</v-btn>
 						<v-btn
 							class="ma-2"
 							color="primary"
@@ -59,7 +59,7 @@
 					</div>
 				</v-col>
 			</v-row>
-		</div>		
+		</div>
 		<v-container class="default-layout__menu-spacer">
 			<v-row>
 				<v-col v-if="currentUser" cols="12">
@@ -73,10 +73,10 @@
 								href="/dashboard"
 							>
 								Take me there
-							</v-btn>						
+							</v-btn>
 						</v-card-actions>
 					</v-card>
-				</v-col>				
+				</v-col>
 				<v-col v-if="!currentUser && isLoginFormOpen" cols="12" md="6" offset-md="3">
 					<login-form
 						class="mb-5"
@@ -95,10 +95,9 @@
 						<li>Currency data visualisation</li>
 						<li>Custom dashboards</li>
 						<li>Portfolio summaries</li>
-						<li>Safe time on boaring reports</li>
-						<li>E-mail support</li>
+						<li>Safe time on boring reports</li>
 					</ul>
-				</v-col>		
+				</v-col>
 			</v-row>
 			<div class="default-layout__block" id="home">
 				<v-row>
@@ -115,15 +114,15 @@
 								@click="handleRegisterForm"
 							>
 								Get started
-							</v-btn>			
+							</v-btn>
 						</div>
 					</v-col>
 					<v-col cols="12" md="7">
 						<img src="/c.jpg" alt="InvestKeep Main" class="default-layout__cover">
 					</v-col>
-				</v-row>	
-        	</div>			
-			<defaultPageContent />											
+				</v-row>
+        	</div>
+			<defaultPageContent />
 		</v-container>
 	</div>
 </template>
@@ -152,19 +151,18 @@
 		},
 		created: function () {
 			this.getDataFromChild()
-			
 		},
 		methods: {
 			getDataFromChild() {
 				this.currentUser = this.$store.state.users.currentUser
 			},
 			handleMobileMenu() {
-				this.isMobileMenuOpen  = !this.isMobileMenuOpen 
+				this.isMobileMenuOpen  = !this.isMobileMenuOpen
 			},
 			handleRegisterForm() {
 				this.isLoginFormOpen = false
 				this.isMobileMenuOpen = false
-				this.isRegisterFormOpen  = !this.isRegisterFormOpen 
+				this.isRegisterFormOpen  = !this.isRegisterFormOpen
 			},
 			handleLoginForm() {
 				this.isRegisterFormOpen = false
@@ -183,7 +181,7 @@
 	width: 100%;
 	box-shadow: 0 2px 30px 0 rgba(0,0,0,0.1);
   }
-  
+
   .default-layout__menu-spacer {
 	  padding-top: 5rem
   }
@@ -194,17 +192,17 @@
 
 	@media screen and (min-width: 960px) {
 		justify-content: flex-end
-	}		
+	}
   }
 
   .defaul-layout__menu-items {
 	height: 100%;
 	display: flex;
 	align-items: center;
-	flex-direction: column;	 
+	flex-direction: column;
 
 	@media screen and (min-width: 960px) {
-		flex-direction: row;	 
+		flex-direction: row;
 	}
   }
 
@@ -224,7 +222,7 @@
 		padding: 0;
 		margin-right: 2rem;
 		padding-top: 0.7rem;
-		border-bottom: 0;	 
+		border-bottom: 0;
 	}
 
 	  &:hover {
@@ -287,15 +285,14 @@
 	  flex-direction: column;
 
 	@media screen and (min-width: 960px) {
-		flex-direction: row;	 
+		flex-direction: row;
 	}
-	
+
 	  img {
 		width: 100px;
 		height: auto;
 		margin: 3rem
 	  }
-	  
   }
 
   .full-width {
