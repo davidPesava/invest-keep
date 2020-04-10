@@ -38,6 +38,7 @@
 							</v-col>
 							<v-col cols="12" md="8" lg="6">
 								<v-text-field
+									v-model="newGraph.name"
 									label="Name your graph"
 								></v-text-field>
 							</v-col>
@@ -48,6 +49,7 @@
 							</v-col>
 							<v-col cols="12" md="8" lg="6">
 								<v-select
+									v-model="newGraphDashboard"
 									:items="dashboardTypes"
 									label="Choose dashboard"
 									dense
@@ -61,6 +63,7 @@
 							</v-col>
 							<v-col cols="12" md="8" lg="6">
 								<v-select
+									v-model="newGraph.graph"
 									:items="graphTypes"
 									label="Choose visuliastion type"
 									dense
@@ -75,7 +78,7 @@
 							<v-col cols="12">
 								<v-row>
 									<v-col cols="2" v-for="aStock in companies">
-										<v-checkbox :label="aStock" :value="aStock" ></v-checkbox>
+										<v-checkbox :label="aStock" :value="aStock" v-model="newGraph.symbol" color="green"></v-checkbox>
 									</v-col>
 								</v-row>
 							</v-col>
@@ -86,7 +89,128 @@
 							</v-col>
 							<v-col cols="3">
 								<v-switch
-									label="Day high price"
+									v-model="newGraph.price"
+									label="Actual price"
+									color="green"
+								 ></v-switch>
+							</v-col>
+							<v-col cols="3">
+								<v-switch
+									v-model="newGraph.priceOpen"
+									label="Price open - today"
+									color="green"
+								 ></v-switch>
+							</v-col>
+							<v-col cols="3">
+								<v-switch
+									v-model="newGraph.dayHigh"
+									label="Today highest price"
+									color="green"
+								 ></v-switch>
+							</v-col>
+							<v-col cols="3">
+								<v-switch
+									v-model="newGraph.dayLow"
+									label="Today lowest price"
+									color="green"
+								 ></v-switch>
+							</v-col>
+							<v-col cols="3">
+								<v-switch
+									v-model="newGraph.high52"
+									label="Highest price of last 52 weeks"
+									color="green"
+								 ></v-switch>
+							</v-col>
+							<v-col cols="3">
+								<v-switch
+									v-model="newGraph.low52"
+									label="Lowest price of last 52 weeks"
+									color="green"
+								 ></v-switch>
+							</v-col>
+							<v-col cols="3">
+								<v-switch
+									v-model="newGraph.dayChange"
+									label="Today change"
+									color="green"
+								 ></v-switch>
+							</v-col>
+							<v-col cols="3">
+								<v-switch
+									v-model="newGraph.changePct"
+									label="Today change in PCT"
+									color="green"
+								 ></v-switch>
+							</v-col>
+							<v-col cols="3">
+								<v-switch
+									v-model="newGraph.closeY"
+									label="Yesterday close price"
+									color="green"
+								 ></v-switch>
+							</v-col>
+							<v-col cols="3">
+								<v-switch
+									v-model="newGraph.marketCap"
+									label="Market Cap"
+									color="green"
+								 ></v-switch>
+							</v-col>
+							<v-col cols="3">
+								<v-switch
+									v-model="newGraph.volume"
+									label="Volume - actual"
+									color="green"
+								 ></v-switch>
+							</v-col>
+							<v-col cols="3">
+								<v-switch
+									v-model="newGraph.volume_avg"
+									label="Volume - avrage"
+									color="green"
+								 ></v-switch>
+							</v-col>
+							<v-col cols="3">
+								<v-switch
+									v-model="newGraph.shares"
+									label="Number of shares"
+									color="green"
+								 ></v-switch>
+							</v-col>
+							<v-col cols="3">
+								<v-switch
+									v-model="newGraph.pe"
+									label="PE ratio"
+									color="green"
+								 ></v-switch>
+							</v-col>
+							<v-col cols="3">
+								<v-switch
+									v-model="newGraph.eps"
+									label="EPS ratio"
+									color="green"
+								 ></v-switch>
+							</v-col>
+							<v-col cols="3">
+								<v-switch
+									v-model="newGraph.currency"
+									label="Currency"
+									color="green"
+								 ></v-switch>
+							</v-col>
+							<v-col cols="3">
+								<v-switch
+									v-model="newGraph.exchange"
+									label="Exchange"
+									color="green"
+								 ></v-switch>
+							</v-col>
+							<v-col cols="3">
+								<v-switch
+									v-model="newGraph.timezone"
+									label="Timezone"
+									color="green"
 								 ></v-switch>
 							</v-col>
 						</v-row>
@@ -100,6 +224,7 @@
 						</v-row>
 					</v-form>
 				</v-card-text>
+				<pre>{{newGraph}}</pre>
 			</v-card>
 		</v-dialog>
 
@@ -339,6 +464,30 @@
 							},
 							graphTypes: ['Table','BarChart','LineChart','ColumnChart','Histogram','AreaChart','PieChart','BubbleChart','CandlestickChart','SteppedAreaChart','ScatterChart'],
 							dashboardTypes: ['primary','secondary'],
+							newGraphDashboard: '',
+							newGraph: {
+								name: '',
+								graph: '',
+								symbol: [],
+								price: false,
+								priceOpen: false,
+								dayHigh: false,
+								dayLow: false,
+								high52: false,
+								low52: false,
+								dayChange: false,
+								changePct: false,
+								closeY: false,
+								marketCap: false,
+								volume: false,
+								volume_avg: false,
+								shares: false,
+								pe: false,
+								eps: false,
+								currency: false,
+								exchange: false,
+								timezone: false,
+							},
 							currentUser: '',
 							symbols: '',
 							companies: [],
