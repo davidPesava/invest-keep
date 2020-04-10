@@ -17,12 +17,8 @@
 				</v-btn>
 			</div>
 		</div>
-
-
-
-
-
-		<v-dialog v-model="modals.addGraphIsOpen" fullscreen hide-overlay transition="dialog-bottom-transition"> 
+		<!-- Add new graph to dashboards-->
+		<v-dialog v-model="modals.addGraphIsOpen" fullscreen hide-overlay transition="dialog-bottom-transition">
 			<v-card>
 				<div class="d-flex justify-space-between align-items-center full-width px-5 pt-4">
 					<h2>Add graph to dashboards</h2>
@@ -45,21 +41,7 @@
 						</v-row>
 						<v-row>
 							<v-col cols="12">
-								<h3 class="primary--text"><strong>2.</strong>Select dashboard</h3>
-							</v-col>
-							<v-col cols="12" md="8" lg="6">
-								<v-select
-									v-model="newGraphDashboard"
-									:items="dashboardTypes"
-									label="Choose dashboard"
-									dense
-								>
-								</v-select>
-							</v-col>
-						</v-row>
-						<v-row>
-							<v-col cols="12">
-								<h3 class="primary--text"><strong>3.</strong> Select visulisation type</h3>
+								<h3 class="primary--text"><strong>2.</strong> Select visulisation type</h3>
 							</v-col>
 							<v-col cols="12" md="8" lg="6">
 								<v-select
@@ -73,7 +55,7 @@
 						</v-row>
 						<v-row>
 							<v-col cols="12">
-								<h3 class="primary--text"><strong>4.</strong> Select stock to be in graph based on your Stock portfolio from proper application page (maximum 3-5 recommend)</h3>
+								<h3 class="primary--text"><strong>3.</strong> Select stock to be in graph based on your Stock portfolio from proper application page (maximum 3-5 recommend)</h3>
 							</v-col>
 							<v-col cols="12">
 								<v-row>
@@ -85,7 +67,7 @@
 						</v-row>
 						<v-row>
 							<v-col cols="12">
-								<h3 class="primary--text"><strong>5.</strong>Select data (maximum 3-5 recommend)</h3>
+								<h3 class="primary--text"><strong>4.</strong>Select data (maximum 3-5 recommend)</h3>
 							</v-col>
 							<v-col cols="3">
 								<v-switch
@@ -216,27 +198,33 @@
 						</v-row>
 						<v-row>
 							<v-col cols="12">
-								<v-btn class="mx-2" large dark color="green">
+								<v-btn @click="addNewGraphToStorage('primary')" class="mx-2" large dark color="secondary">
 									<v-icon dark>mdi-plus</v-icon>
-									<span>Add graph to dashboard</span>
+									<span>Add to Primary dashboard</span>
+								</v-btn>
+								<v-btn @click="addNewGraphToStorage('secondary')" class="mx-2" large dark color="info">
+									<v-icon dark>mdi-plus</v-icon>
+									<span>Add to Secondary dashboard</span>
 								</v-btn>
 							</v-col>
 						</v-row>
+						<v-snackbar
+							v-model="snackbar"
+							:timeout="2000"
+						>
+							<div class="color--text">Added to dashboard. You can close window now</div>
+						</v-snackbar>
+						<v-snackbar
+							v-model="snackbarError"
+							:timeout="2000"
+						>
+							<div class="color--error">Something is missing, check your form and try again.</div>
+						</v-snackbar>
 					</v-form>
 				</v-card-text>
-				<pre>{{newGraph}}</pre>
 			</v-card>
 		</v-dialog>
-
-
-
-
-
-
-
-
-
-
+		<!-- Edit dashboards  -->
 		<v-dialog v-model="modals.editDashboardIsOpen" fullscreen hide-overlay transition="dialog-bottom-transition"> 
 			<v-card>
 				<div class="d-flex justify-space-between align-items-center full-width px-5 pt-4">
@@ -247,11 +235,6 @@
 				</div>
 			</v-card>
 		</v-dialog>
-
-
-
-
-
 		<v-tabs light class="mb-6">
 			<div class="d-flex align-center">Dashboards:</div>
 			<v-tab @click="changeToPrimary()">Primary</v-tab>
@@ -287,6 +270,11 @@
 								let val = JSON.parse(JSON.stringify(doc.data()))
 								this.$store.commit('users/setCredentials', val)
 								this.companies = val.stocks
+
+								this.dashboardsData.primary = val.primary
+								this.dashboardsData.secondary = val.secondary
+
+
 								let arrayGraphs = val.primary
 								arrayGraphs.forEach((element) => {
 									let localGraphsArray = this.fetchGraph(element).then(
@@ -443,6 +431,25 @@
 					closeAddGraphForm() {
 						this.$router.go('/dashboard')
 					},
+					addNewGraphToStorage(dashboard) {
+						let toDb = dashboard
+						if(this.newGraph.name && this.newGraph.graph && this.newGraph.symbol) {
+							if(toDb === "primary") {
+								let hel = JSON.parse(JSON.stringify(this.dashboardsData.primary))
+								hel.push(this.newGraph)
+								firebase.firestore().collection('users').doc(this.currentUser.uid).update({primary: hel})
+								this.snackbar = true
+							}
+							if(toDb === "secondary") {
+								let hel = JSON.parse(JSON.stringify(this.dashboardsData.secondary))
+								hel.push(this.newGraph)
+								firebase.firestore().collection('users').doc(this.currentUser.uid).update({secondary: hel})
+								this.snackbar = true
+							}
+						} else {
+							this.snackbarError = true
+						}
+					}
 				},
 				data() {
 						return {
@@ -464,7 +471,6 @@
 							},
 							graphTypes: ['Table','BarChart','LineChart','ColumnChart','Histogram','AreaChart','PieChart','BubbleChart','CandlestickChart','SteppedAreaChart','ScatterChart'],
 							dashboardTypes: ['primary','secondary'],
-							newGraphDashboard: '',
 							newGraph: {
 								name: '',
 								graph: '',
@@ -491,6 +497,8 @@
 							currentUser: '',
 							symbols: '',
 							companies: [],
+							snackbar: false,
+							snackbarError: false,
 							chatLoadedData: [],
 							chartOptions: {
 								base: {

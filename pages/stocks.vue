@@ -42,7 +42,7 @@
 											<div class="d-flex align-center">
 												<v-btn @click="addStockToUser(stock.symbol)" small color="success">
 													<v-icon dark>mdi-plus</v-icon>
-												</v-btn>								
+												</v-btn>
 											</div>
 										</div>
 										<hr>
@@ -51,7 +51,7 @@
 										:timeout="2000"
 										>
 											<div class="color--text">Added to portfolio. You can close window now</div>
-										</v-snackbar>					
+										</v-snackbar>
 								</div>
 								<div v-if="searchForm.noResults">
 									<v-alert type="error" class="mt-3">
