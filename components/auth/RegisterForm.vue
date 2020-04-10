@@ -7,7 +7,7 @@
   			</v-alert>
 			<v-alert v-if="isRegistered" type="success" class="mt-3">
     			 <strong>Registration was successful, continue to login form</strong>
-  			</v-alert>			
+  			</v-alert>
 			<v-form v-if="!isRegistered" @submit.prevent class="mb-5">
 				<v-text-field
 					v-model.trim="registerForm.name"
@@ -75,7 +75,10 @@
 								uid: user.user.uid,
 								email: this.registerForm.email,
 								name: this.registerForm.name,
-								stocks: []
+								stocks: [],
+								primary: [],
+								secondary: [],
+								currencies: []
 							}
 							//Put data into Firestore
 							firebase.firestore().collection('users').doc(user.user.uid).set(account)
