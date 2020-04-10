@@ -118,7 +118,7 @@
 						</div>
 					</v-col>
 					<v-col cols="12" md="7">
-						<img src="/c.jpg" alt="InvestKeep Main" class="default-layout__cover">
+						<img src="/a.png" alt="InvestKeep Main" class="default-layout__cover">
 					</v-col>
 				</v-row>
         	</div>
