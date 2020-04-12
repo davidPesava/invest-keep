@@ -31,7 +31,7 @@
                     </div>
                 </v-col>
                 <v-col cols="12" md="7">
-                    <img src="/data.jpg" alt="InvestKeep Main" class="default-layout__cover">
+                    <img src="/data.png" alt="InvestKeep Main" class="default-layout__cover">
                 </v-col>
             </v-row>
         </div>
@@ -92,8 +92,10 @@
                     <h3 class="headline text-center">Powered by:</h3>
                     <div class="default-layout__tech-logos">
                         <img src="/vue.png" alt="Vue.js">
+                        <img src="/v.png" alt="Vuetify">
                         <img src="/firebase.png" alt="Firebase">
                         <img src="/nuxt.png" alt="NUXT">
+                        <img src="/wtd.png" alt="World trading data">
                     </div>
                 </v-col>
             </v-row>
