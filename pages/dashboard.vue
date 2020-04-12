@@ -140,11 +140,13 @@
 		<v-card>
 			<div class="d-flex justify-space-between align-items-center full-width px-5 pt-4">
 				<h2>Edit dashboards</h2>
-				<v-btn @click="closeAddGraphForm" class="mx-2" large dark color="error">
-					<v-icon dark>mdi-close</v-icon>
-				</v-btn>
 			</div>
-			<edit :primary="dashboardsData.primary" :secondary="dashboardsData.secondary" :companies="companies" />
+			<edit
+				:primary="dashboardsData.primary"
+				:secondary="dashboardsData.secondary"
+				:companies="companies"
+				:uid="currentUser.uid"
+			/>
 		</v-card>
 	</v-dialog>
 	<v-tabs light class="mb-6">
