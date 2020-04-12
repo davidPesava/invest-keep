@@ -75,7 +75,7 @@
                     <v-expansion-panels>
                         <v-expansion-panel>
                             <v-expansion-panel-header><strong>Which actives types can I found in App?</strong></v-expansion-panel-header>
-                            <v-expansion-panel-content>
+                            v-expansion-panel-content><
                                 Currently stocks and forex.
                             </v-expansion-panel-content>
                         </v-expansion-panel>

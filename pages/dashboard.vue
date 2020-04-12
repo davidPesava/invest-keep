@@ -224,6 +224,8 @@
 				</v-card-text>
 			</v-card>
 		</v-dialog>
+
+
 		<!-- Edit dashboards  -->
 		<v-dialog v-model="modals.editDashboardIsOpen" fullscreen hide-overlay transition="dialog-bottom-transition"> 
 			<v-card>
@@ -233,8 +235,11 @@
 						<v-icon dark>mdi-close</v-icon>
 					</v-btn>
 				</div>
+				<edit :primary="dashboardsData.primary" :secondary="dashboardsData.secondary" :companies="companies" />
 			</v-card>
 		</v-dialog>
+
+
 		<v-tabs light class="mb-6">
 			<div class="d-flex align-center">Dashboards:</div>
 			<v-tab @click="changeToPrimary()">Primary</v-tab>
@@ -250,11 +255,12 @@
 		import { GChart } from 'vue-google-charts'
 		import primary from "../components/dashboards/primary"
 		import secondary from "../components/dashboards/secondary"
+		import edit from "../components/dashboards/edit"
 
 		export default {
 				layout: 'app-layout',
 				middleware: 'router-auth',
-				components: {GChart, primary, secondary},
+				components: {GChart, primary, secondary,edit},
 				created: function () {
 						this.initStocks()
 				},
