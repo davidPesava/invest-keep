@@ -92,9 +92,9 @@
                     <h3 class="headline text-center">Powered by:</h3>
                     <div class="default-layout__tech-logos">
                         <img src="/vue.png" alt="Vue.js">
-                        <img src="/v.png" alt="Vuetify">
-                        <img src="/firebase.png" alt="Firebase">
+                        <img src="/vuetify.png" alt="Vuetify">
                         <img src="/nuxt.png" alt="NUXT">
+                        <img src="/firebase.png" alt="Firebase">
                         <img src="/wtd.png" alt="World trading data">
                         <img src="/heroku.png" alt="Heroku">
                     </div>
