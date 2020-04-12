@@ -96,6 +96,7 @@
                         <img src="/firebase.png" alt="Firebase">
                         <img src="/nuxt.png" alt="NUXT">
                         <img src="/wtd.png" alt="World trading data">
+                        <img src="/heroku.png" alt="Heroku">
                     </div>
                 </v-col>
             </v-row>
