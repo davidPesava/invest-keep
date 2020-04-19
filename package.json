@@ -21,7 +21,8 @@
     "moment": "^2.24.0",
     "nuxt": "^2.0.0",
     "vue-google-charts": "^0.3.2",
-    "vue2-smooth-scroll": "^1.2.0"
+    "vue2-smooth-scroll": "^1.2.0",
+    "vuedraggable": "^2.23.2"
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.0.0"
