@@ -1,21 +1,26 @@
 <template>
 <div>
 	<h2 class="mb-4">Primary dashboard</h2>
-	<div v-for="graph in graphs">
-		<h3><strong class="primary--text">{{ graph.name }}</strong></h3>
-		<GChart :type="graph.graphType" :data="graph.data" :options="chartOptions" class="mb-5" />
-	</div>
+	<draggable>
+		<div v-for="graph in graphs">
+			<div class="d-flex justify-space-between">
+				<h3><strong class="primary--text">{{ graph.name }}</strong></h3><v-icon>mdi-arrow-all</v-icon>
+			</div>
+			<GChart :type="graph.graphType" :data="graph.data" :options="chartOptions" class="mb-5" />
+		</div>
+	</draggable>
 </div>
 </template>
 
 <script>
+import draggable from 'vuedraggable'
 import {
 	GChart
 } from 'vue-google-charts'
 export default {
 	name: "primary",
 	components: {
-		GChart
+		GChart, draggable
 	},
 	props: {
 		graphs: {

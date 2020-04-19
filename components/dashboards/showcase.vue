@@ -3,23 +3,33 @@
 	<h2 class="mb-4">Primary dashboard</h2>
 	<draggable>
 		<div>
-			<h3><strong class="primary--text">Actual prices - Portfolio car manufatcures</strong></h3>
+			<div class="d-flex justify-space-between">
+				<h3><strong class="primary--text">Actual prices - Portfolio car manufatcures</strong></h3><v-icon>mdi-arrow-all</v-icon>
+			</div>
 			<GChart type="ColumnChart" :data="prvni" :options="chartOptions" class="mb-5" />
 		</div>
 		<div>
-			<h3><strong class="primary--text">Day change - Portfolio car manufatcures</strong></h3>
+			<div class="d-flex justify-space-between">
+				<h3><strong class="primary--text">Day change - Portfolio car manufatcures</strong></h3><v-icon>mdi-arrow-all</v-icon>
+			</div>
 			<GChart type="BarChart" :data="druhy" :options="chartOptions" class="mb-5" />
 		</div>
 		<div>
-			<h3><strong class="primary--text">Ratios - Portfolio car manufatcures</strong></h3>
+			<div class="d-flex justify-space-between">
+				<h3><strong class="primary--text">Ratios - Portfolio car manufatcures</strong></h3><v-icon>mdi-arrow-all</v-icon>
+			</div>
 			<GChart type="Table" :data="treti" :options="chartOptions" class="mb-5" />
 		</div>
 		<div>
-			<h3><strong class="primary--text">Market parcipitation - Portfolio car manufatcures</strong></h3>
+			<div class="d-flex justify-space-between">
+				<h3><strong class="primary--text">Market parcipitation - Portfolio car manufatcures</strong></h3><v-icon>mdi-arrow-all</v-icon>
+			</div>
 			<GChart type="PieChart" :data="ctvrty" class="mb-5" />
 		</div>
 		<div>
-			<h3><strong class="primary--text">Prices strentgh - Portfolio car manufatcures</strong></h3>
+			<div class="d-flex justify-space-between">
+				<h3><strong class="primary--text">Prices strentgh - Portfolio car manufatcures</strong></h3><v-icon>mdi-arrow-all</v-icon>
+			</div>
 			<GChart type="BubbleChart" :data="paty" class="mb-5" />
 		</div>
 	</draggable>
