@@ -153,9 +153,11 @@
 		<div class="d-flex align-center">Dashboards:</div>
 		<v-tab @click="changeToPrimary()">Primary</v-tab>
 		<v-tab @click="changeToSecondary()">Secondary</v-tab>
+		<v-tab @click="changeToShowcase()">Showcase</v-tab>
 	</v-tabs>
 	<primary v-if="dashboards.primary" :graphs="fetchedDashboardsData.primary" />
 	<secondary v-if="dashboards.secondary" :graphs="fetchedDashboardsData.secondary" />
+	<showcase v-if="dashboards.showcase" />
 </v-layout>
 </template>
 
@@ -166,6 +168,7 @@ import {
 } from 'vue-google-charts'
 import primary from "../components/dashboards/primary"
 import secondary from "../components/dashboards/secondary"
+import showcase from "../components/dashboards/showcase"
 import edit from "../components/dashboards/edit"
 
 export default {
@@ -175,7 +178,8 @@ export default {
 		GChart,
 		primary,
 		secondary,
-		edit
+		edit,
+		showcase
 	},
 	created: function () {
 		this.initStocks()
@@ -344,10 +348,17 @@ export default {
 		changeToPrimary() {
 			this.dashboards.primary = true
 			this.dashboards.secondary = false
+			this.dashboards.showcase = false
 		},
 		changeToSecondary() {
 			this.dashboards.primary = false
 			this.dashboards.secondary = true
+			this.dashboards.showcase = false
+		},
+		changeToShowcase() {
+			this.dashboards.primary = false
+			this.dashboards.secondary = false
+			this.dashboards.showcase = true
 		},
 		closeAddGraphForm() {
 			this.$router.go('/dashboard')
@@ -381,6 +392,7 @@ export default {
 			dashboards: {
 				primary: true,
 				secondary: false,
+				showcase: false,
 			},
 			dashboardsData: {
 				primary: [],
