@@ -5,6 +5,9 @@
         <div class="error--text mt-10 mb-5">
             Dont forget to save your changes
         </div>
+		<div class="mt-10 mb-5">
+            For editing graph positions use drag and drop. Just clik and hold on bar and move it.
+        </div>
         <div>
             <v-btn @click="saveToStorage" class="mx-2" large dark color="green">
                 <v-icon dark>mdi-content-save</v-icon>
