@@ -283,7 +283,17 @@ export default {
 			}
 			outerHelper.data.push(descriptions)
 			const fetchedStocks = await this.$axios.$get(this.$store.state.config.env.baseApiUrl + 'stock?symbol=' + symbol + '&api_token=' + this.$store.state.config.env.apiToken)
-			console.log(fetchedStocks)
+			//console.log(fetchedStocks)
+
+			const lyer = await this.$axios.$get('https://sandbox.iexapis.com/stable/stock/market/batch?symbols='+symbol+'&types=quote&range=1m&last=5&token=Tsk_8e75cf29a1414892afcee000eb0a31f9')
+
+			//console.log(Object.values(lyer))
+		
+
+			Object.values(lyer).forEach((element2) => {
+				console.log(element2.quote)
+			})
+
 			fetchedStocks.data.forEach((element) => {
 				let helper = []
 				helper.push(element.name)
