@@ -291,9 +291,68 @@ export default {
 		
 
 			Object.values(lyer).forEach((element2) => {
-				console.log(element2.quote)
+				//console.log(element2.quote.delayedPrice)
+
+				let helper = []
+				helper.push(element2.quote.companyName)
+				if (graphOptions.price) {
+					helper.push(parseFloat(element2.quote.delayedPrice))
+				}
+				if (graphOptions.priceOpen) {
+					helper.push(parseFloat(element2.quote.delayedPrice))
+				}
+				if (graphOptions.dayHigh) {
+					helper.push(parseFloat(element2.quote.delayedPrice))
+				}
+				if (graphOptions.dayLow) {
+					helper.push(parseFloat(element2.quote.delayedPrice))
+				}
+				if (graphOptions.high52) {
+					helper.push(parseFloat(element2.quote.delayedPrice))
+				}
+				if (graphOptions.low52) {
+					helper.push(parseFloat(element2.quote.delayedPrice))
+				}
+				if (graphOptions.dayChange) {
+					helper.push(parseFloat(element2.quote.delayedPrice))
+				}
+				if (graphOptions.changePct) {
+					helper.push(parseFloat(element2.quote.delayedPrice))
+				}
+				if (graphOptions.closeY) {
+					helper.push(parseFloat(element2.quote.delayedPrice))
+				}
+				if (graphOptions.marketCap) {
+					helper.push(parseFloat(element2.quote.delayedPrice))
+				}
+				if (graphOptions.volume) {
+					helper.push(parseFloat(element2.quote.delayedPrice))
+				}
+				if (graphOptions.volume_avg) {
+					helper.push(parseFloat(element2.quote.delayedPrice))
+				}
+				if (graphOptions.shares) {
+					helper.push(parseFloat(element2.quote.delayedPrice))
+				}
+				if (graphOptions.pe) {
+					helper.push(parseFloat(element2.quote.delayedPrice))
+				}
+				if (graphOptions.eps) {
+					helper.push(parseFloat(element2.quote.delayedPrice))
+				}
+				if (graphOptions.currency) {
+					helper.push(parseFloat(element2.quote.delayedPrice))
+				}
+				if (graphOptions.exchange) {
+					helper.push(parseFloat(element2.quote.delayedPrice))
+				}
+				if (graphOptions.timezone) {
+					helper.push(parseFloat(element2.quote.delayedPrice))
+				}
+				outerHelper.data.push(helper)
 			})
 
+/*
 			fetchedStocks.data.forEach((element) => {
 				let helper = []
 				helper.push(element.name)
@@ -353,6 +412,8 @@ export default {
 				}
 				outerHelper.data.push(helper)
 			})
+
+*/
 			return outerHelper
 		},
 		changeToPrimary() {
