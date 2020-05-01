@@ -6,19 +6,23 @@
 				<v-card-title>
 					<div class="full-width d-flex justify-space-between">
 						<div class="d-flex">
+							{{ company.baseCreditials.companyName }}
 							<div>
-								{{ company.baseCreditials[0].name }}
-								({{ company.baseCreditials[0].symbol }})
+								<!--{{ company.baseCreditials[0].name }}
+								({{ company.baseCreditials[0].symbol }}) -->
 							</div>
-							<div class="ml-2" :class="[parseFloat(company.baseCreditials[0].day_change) > 0 ?  'green--text' : 'red--text']">
+							<!--<div class="ml-2" :class="[parseFloat(company.baseCreditials[0].day_change) > 0 ?  'green--text' : 'red--text']">
 								{{ company.baseCreditials[0].day_change }}
-							</div>
+							</div>-->
 						</div>
+						<!--
 						<v-btn @click="removeStock(company.baseCreditials[0].symbol)" class="mx-2" small dark color="error">
 							<v-icon dark>mdi-close</v-icon>
 						</v-btn>
+						-->
 					</div>
 				</v-card-title>
+				<!--
 				<v-card-text>
 					<v-row>
 						<v-col cols="6">
@@ -102,6 +106,7 @@
 						</v-col>
 					</v-row>
 				</v-card-text>
+				-->
 			</v-card>
 		</v-col>
 	</v-row>
@@ -137,7 +142,8 @@ export default {
 			let outerHelper = {}
 			var p = Promise.resolve(this.fetchStockData(usersSymbols));
 			p.then(function (v) {
-				outerHelper.baseCreditials = v
+				outerHelper.baseCreditials = v[0].quote
+
 			});
 			outerHelper.data = []
 			const fetchedHistory = await this.$axios.$get(this.$store.state.config.env.baseApiUrl + 'history?symbol=' + symbols + '&api_token=' + this.$store.state.config.env.apiToken)
@@ -154,8 +160,8 @@ export default {
 			return outerHelper
 		},
 		async fetchStockData(symbols) {
-			const fetchedStocks = await this.$axios.$get(this.$store.state.config.env.baseApiUrl + 'stock?symbol=' + symbols + '&api_token=' + this.$store.state.config.env.apiToken)
-			return fetchedStocks.data
+			const fetchedStocks = await this.$axios.$get('https://sandbox.iexapis.com/stable/stock/market/batch?symbols='+symbols+'&types=quote&range=1m&last=5&token=Tsk_8e75cf29a1414892afcee000eb0a31f9')
+			return Object.values(fetchedStocks)
 		},
 		removeStock(symbol) {
 			let hel = JSON.parse(JSON.stringify(this.symbols))
