@@ -282,12 +282,12 @@ export default {
 				descriptions.push("Time")
 			}
 			outerHelper.data.push(descriptions)
-			const fetchedStocks = await this.$axios.$get(this.$store.state.config.env.baseApiUrl + 'stock?symbol=' + symbol + '&api_token=' + this.$store.state.config.env.apiToken)
+			//const fetchedStocks = await this.$axios.$get(this.$store.state.config.env.baseApiUrl + 'stock?symbol=' + symbol + '&api_token=' + this.$store.state.config.env.apiToken)
 			//console.log(fetchedStocks)
 
 			const lyer = await this.$axios.$get('https://sandbox.iexapis.com/stable/stock/market/batch?symbols='+symbol+'&types=quote&range=1m&last=5&token=Tsk_8e75cf29a1414892afcee000eb0a31f9')
 
-			//console.log(Object.values(lyer))
+			console.log(Object.values(lyer))
 		
 
 			Object.values(lyer).forEach((element2) => {
@@ -296,13 +296,13 @@ export default {
 				let helper = []
 				helper.push(element2.quote.companyName)
 				if (graphOptions.price) {
-					helper.push(parseFloat(element2.quote.delayedPrice))
+					helper.push(parseFloat(element2.quote.latestPrice))
 				}
 				if (graphOptions.priceOpen) {
-					helper.push(parseFloat(element2.quote.delayedPrice))
+					helper.push(parseFloat(element2.quote.latestPrice))
 				}
 				if (graphOptions.dayHigh) {
-					helper.push(parseFloat(element2.quote.delayedPrice))
+					helper.push(parseFloat(element2.quote.latestPrice))
 				}
 				if (graphOptions.dayLow) {
 					helper.push(parseFloat(element2.quote.delayedPrice))
@@ -335,7 +335,7 @@ export default {
 					helper.push(parseFloat(element2.quote.delayedPrice))
 				}
 				if (graphOptions.pe) {
-					helper.push(parseFloat(element2.quote.delayedPrice))
+					helper.push(parseFloat(element2.quote.peRatio))
 				}
 				if (graphOptions.eps) {
 					helper.push(parseFloat(element2.quote.delayedPrice))
@@ -347,7 +347,7 @@ export default {
 					helper.push(parseFloat(element2.quote.delayedPrice))
 				}
 				if (graphOptions.timezone) {
-					helper.push(parseFloat(element2.quote.delayedPrice))
+					helper.push(parseFloat(element.timezone_name))
 				}
 				outerHelper.data.push(helper)
 			})

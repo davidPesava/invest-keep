@@ -6,7 +6,7 @@
 				<v-card-title>
 					<div class="full-width d-flex justify-space-between">
 						<div class="d-flex">
-							{{ company.baseCreditials.companyName }}
+							<div v-if="company.baseCreditials">{{ company.baseCreditials }}</div>
 							<div>
 								<!--{{ company.baseCreditials[0].name }}
 								({{ company.baseCreditials[0].symbol }}) -->
@@ -140,11 +140,12 @@ export default {
 		async fetchHistory(usersSymbols) {
 			let symbols = usersSymbols
 			let outerHelper = {}
+			console.log(this.fetchStockData(usersSymbols))
 			var p = Promise.resolve(this.fetchStockData(usersSymbols));
 			p.then(function (v) {
 				outerHelper.baseCreditials = v[0].quote
-
 			});
+			console.log(outerHelper.baseCreditials)
 			outerHelper.data = []
 			const fetchedHistory = await this.$axios.$get(this.$store.state.config.env.baseApiUrl + 'history?symbol=' + symbols + '&api_token=' + this.$store.state.config.env.apiToken)
 			Object.keys(fetchedHistory.history).forEach((key, index) => {
@@ -161,6 +162,7 @@ export default {
 		},
 		async fetchStockData(symbols) {
 			const fetchedStocks = await this.$axios.$get('https://sandbox.iexapis.com/stable/stock/market/batch?symbols='+symbols+'&types=quote&range=1m&last=5&token=Tsk_8e75cf29a1414892afcee000eb0a31f9')
+			console.log(Object.values(fetchedStocks))
 			return Object.values(fetchedStocks)
 		},
 		removeStock(symbol) {
