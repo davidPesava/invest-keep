@@ -269,7 +269,6 @@ export default {
 			const lyer = await this.$axios.$get('https://sandbox.iexapis.com/stable/stock/market/batch?symbols='+symbol+'&types=quote&range=1m&last=5&token=Tsk_8e75cf29a1414892afcee000eb0a31f9')
 
 			Object.values(lyer).forEach((element2) => {
-				console.log(element2.quote)
 
 				let helper = []
 				helper.push(element2.quote.companyName)

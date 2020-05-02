@@ -56,7 +56,6 @@
 			<div class="color--text">Added to portfolio. You can close window now</div>
 		</v-snackbar>
 		<v-card>
-
 			<v-card-title>{{ historyDataDesc }}</v-card-title>
 			<GChart type="LineChart" :data="historyData" :options="chartOptions.chart" class="pb-5" />
 		</v-card>
