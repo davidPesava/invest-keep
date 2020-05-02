@@ -104,16 +104,7 @@
                                 <v-switch v-model="graph.pe" label="PE ratio" color="green"></v-switch>
                             </v-col>
                             <v-col cols="3">
-                                <v-switch v-model="graph.eps" label="EPS ratio" color="green"></v-switch>
-                            </v-col>
-                            <v-col cols="3">
-                                <v-switch v-model="graph.currency" label="Currency" color="green"></v-switch>
-                            </v-col>
-                            <v-col cols="3">
-                                <v-switch v-model="graph.exchange" label="Exchange" color="green"></v-switch>
-                            </v-col>
-                            <v-col cols="3">
-                                <v-switch v-model="graph.timezone" label="Timezone" color="green"></v-switch>
+                                <v-switch v-model="graph.eps" label="Year change" color="green"></v-switch>
                             </v-col>
                         </v-row>
                         <v-row>

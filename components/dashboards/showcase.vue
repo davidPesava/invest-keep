@@ -1,6 +1,7 @@
 <template>
 <div>
 	<h2 class="mb-4">Primary dashboard</h2>
+	<h4 class="mb-4 error--text">This is just statical showcase page to demonstrate some function and graph types.</h4>
 	<draggable>
 		<div>
 			<div class="d-flex justify-space-between">

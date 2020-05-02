@@ -100,16 +100,7 @@
 							<v-switch v-model="newGraph.pe" label="PE ratio" color="green"></v-switch>
 						</v-col>
 						<v-col cols="3">
-							<v-switch v-model="newGraph.eps" label="EPS ratio" color="green"></v-switch>
-						</v-col>
-						<v-col cols="3">
-							<v-switch v-model="newGraph.currency" label="Currency" color="green"></v-switch>
-						</v-col>
-						<v-col cols="3">
-							<v-switch v-model="newGraph.exchange" label="Exchange" color="green"></v-switch>
-						</v-col>
-						<v-col cols="3">
-							<v-switch v-model="newGraph.timezone" label="Timezone" color="green"></v-switch>
+							<v-switch v-model="newGraph.eps" label="Year change" color="green"></v-switch>
 						</v-col>
 					</v-row>
 					<v-row>
@@ -270,28 +261,15 @@ export default {
 				descriptions.push("PE ratio")
 			}
 			if (graphOptions.eps) {
-				descriptions.push("EPS ratio")
+				descriptions.push("Year changes")
 			}
-			if (graphOptions.currency) {
-				descriptions.push("Currency")
-			}
-			if (graphOptions.exchange) {
-				descriptions.push("Stock exchange")
-			}
-			if (graphOptions.timezone) {
-				descriptions.push("Time")
-			}
+
 			outerHelper.data.push(descriptions)
-			//const fetchedStocks = await this.$axios.$get(this.$store.state.config.env.baseApiUrl + 'stock?symbol=' + symbol + '&api_token=' + this.$store.state.config.env.apiToken)
-			//console.log(fetchedStocks)
 
 			const lyer = await this.$axios.$get('https://sandbox.iexapis.com/stable/stock/market/batch?symbols='+symbol+'&types=quote&range=1m&last=5&token=Tsk_8e75cf29a1414892afcee000eb0a31f9')
 
-			console.log(Object.values(lyer))
-		
-
 			Object.values(lyer).forEach((element2) => {
-				//console.log(element2.quote.delayedPrice)
+				console.log(element2.quote)
 
 				let helper = []
 				helper.push(element2.quote.companyName)
@@ -302,118 +280,47 @@ export default {
 					helper.push(parseFloat(element2.quote.latestPrice))
 				}
 				if (graphOptions.dayHigh) {
-					helper.push(parseFloat(element2.quote.latestPrice))
+					helper.push(parseFloat(element2.quote.high))
 				}
 				if (graphOptions.dayLow) {
-					helper.push(parseFloat(element2.quote.delayedPrice))
+					helper.push(parseFloat(element2.quote.low))
 				}
 				if (graphOptions.high52) {
-					helper.push(parseFloat(element2.quote.delayedPrice))
+					helper.push(parseFloat(element2.quote.week52High))
 				}
 				if (graphOptions.low52) {
-					helper.push(parseFloat(element2.quote.delayedPrice))
+					helper.push(parseFloat(element2.quote.week52Low))
 				}
 				if (graphOptions.dayChange) {
-					helper.push(parseFloat(element2.quote.delayedPrice))
+					helper.push(parseFloat(element2.quote.change))
 				}
 				if (graphOptions.changePct) {
-					helper.push(parseFloat(element2.quote.delayedPrice))
+					helper.push(parseFloat(element2.quote.changePercent))
 				}
 				if (graphOptions.closeY) {
-					helper.push(parseFloat(element2.quote.delayedPrice))
+					helper.push(parseFloat(element2.quote.previousClose))
 				}
 				if (graphOptions.marketCap) {
-					helper.push(parseFloat(element2.quote.delayedPrice))
+					helper.push(parseFloat(element2.quote.marketCap))
 				}
 				if (graphOptions.volume) {
-					helper.push(parseFloat(element2.quote.delayedPrice))
+					helper.push(parseFloat(element2.quote.previousVolume))
 				}
 				if (graphOptions.volume_avg) {
-					helper.push(parseFloat(element2.quote.delayedPrice))
+					helper.push(parseFloat(element2.quote.avgTotalVolume))
 				}
 				if (graphOptions.shares) {
-					helper.push(parseFloat(element2.quote.delayedPrice))
+					helper.push(parseFloat(element2.quote.latestVolume))
 				}
 				if (graphOptions.pe) {
 					helper.push(parseFloat(element2.quote.peRatio))
 				}
 				if (graphOptions.eps) {
-					helper.push(parseFloat(element2.quote.delayedPrice))
-				}
-				if (graphOptions.currency) {
-					helper.push(parseFloat(element2.quote.delayedPrice))
-				}
-				if (graphOptions.exchange) {
-					helper.push(parseFloat(element2.quote.delayedPrice))
-				}
-				if (graphOptions.timezone) {
-					helper.push(parseFloat(element.timezone_name))
+					helper.push(parseFloat(element2.quote.ytdChange))
 				}
 				outerHelper.data.push(helper)
 			})
 
-/*
-			fetchedStocks.data.forEach((element) => {
-				let helper = []
-				helper.push(element.name)
-				if (graphOptions.price) {
-					helper.push(parseFloat(element.price))
-				}
-				if (graphOptions.priceOpen) {
-					helper.push(parseFloat(element.price_open))
-				}
-				if (graphOptions.dayHigh) {
-					helper.push(parseFloat(element.day_high))
-				}
-				if (graphOptions.dayLow) {
-					helper.push(parseFloat(element.day_low))
-				}
-				if (graphOptions.high52) {
-					helper.push(parseFloat(element['52_week_high']))
-				}
-				if (graphOptions.low52) {
-					helper.push(parseFloat(element['52_week_low']))
-				}
-				if (graphOptions.dayChange) {
-					helper.push(parseFloat(element.day_change))
-				}
-				if (graphOptions.changePct) {
-					helper.push(parseFloat(element.change_pct))
-				}
-				if (graphOptions.closeY) {
-					helper.push(parseFloat(element.close_yesterday))
-				}
-				if (graphOptions.marketCap) {
-					helper.push(parseFloat(element.market_cap))
-				}
-				if (graphOptions.volume) {
-					helper.push(parseFloat(element.volume))
-				}
-				if (graphOptions.volume_avg) {
-					helper.push(parseFloat(element.volume_avg))
-				}
-				if (graphOptions.shares) {
-					helper.push(parseFloat(element.shares))
-				}
-				if (graphOptions.pe) {
-					helper.push(parseFloat(element.pe))
-				}
-				if (graphOptions.eps) {
-					helper.push(parseFloat(element.eps))
-				}
-				if (graphOptions.currency) {
-					helper.push(parseFloat(element.currency))
-				}
-				if (graphOptions.exchange) {
-					helper.push(parseFloat(element.stock_exchange_long))
-				}
-				if (graphOptions.timezone) {
-					helper.push(parseFloat(element.timezone_name))
-				}
-				outerHelper.data.push(helper)
-			})
-
-*/
 			return outerHelper
 		},
 		changeToPrimary() {
