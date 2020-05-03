@@ -1,99 +1,89 @@
 <template>
-  <v-app dark>
-    <v-navigation-drawer
-      v-model="drawer"
-      fixed
-      app
-    >
-      <Logo :small="true" />
-      <v-list>
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-      <div class="app-layout__logOutButtonContainer">
-        <log-out-button />
-      </div>
-    </v-navigation-drawer>
-    <v-content>
-      <v-container>
-        <nuxt />
-      </v-container>
-    </v-content>
-    <v-footer
-      :fixed="fixed"
-      app
-    >
-      <span>&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer>
-  </v-app>
+<v-app dark>
+		<v-navigation-drawer v-model="drawer" fixed app>
+				<Logo :small="true" />
+				<v-list>
+						<v-list-item v-for="(item, i) in items" :key="i" :to="item.to" router exact>
+								<v-list-item-action>
+										<v-icon>{{ item.icon }}</v-icon>
+								</v-list-item-action>
+								<v-list-item-content>
+										<v-list-item-title v-text="item.title" />
+								</v-list-item-content>
+						</v-list-item>
+				</v-list>
+				<div class="app-layout__logOutButtonContainer">
+						<log-out-button />
+				</div>
+		</v-navigation-drawer>
+		<v-app-bar :clipped-left="clipped" fixed app class="d-lg-none">
+				<v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+				<v-toolbar-title v-text="title" />
+		</v-app-bar>
+		<v-content class="pt-lg-0">
+				<v-container>
+						<nuxt />
+				</v-container>
+		</v-content>
+		<v-footer :fixed="fixed" app>
+				<span>&copy; {{ new Date().getFullYear() }}</span>
+		</v-footer>
+</v-app>
 </template>
 
 <script>
-  import Logo from "../components/layout/Logo"
-  import LogOutButton from "../components/auth/LogOutButton"
-
+import Logo from "../components/layout/Logo"
+import LogOutButton from "../components/auth/LogOutButton"
 
 export default {
-  components: {
-    Logo, LogOutButton
-  },
-  data () {
-    return {
-      clipped: false,
-      drawer: true,
-      fixed: false,
-      items: [
-        {
-          icon: 'mdi-home',
-          title: 'Homepage',
-          to: '/'
-        },
-        {
-          icon: 'mdi-view-dashboard',
-          title: 'Dashboards',
-          to: '/dashboard',
-        },
-        {
-          icon: 'mdi-chart-line',
-          title: 'Stocks',
-          to: '/stocks',
-        },   
-        {
-          icon: 'mdi-currency-eur',
-          title: 'Currencies',
-          to: '/currencies',
-        },   
-        {
-          icon: 'mdi-account',
-          title: 'Account',
-          to: '/account',
-        }                  
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'App'
-    }
-  },
+		components: {
+				Logo,
+				LogOutButton
+		},
+		data() {
+				return {
+						clipped: false,
+						drawer: true,
+						fixed: false,
+						items: [{
+										icon: 'mdi-home',
+										title: 'Homepage',
+										to: '/'
+								},
+								{
+										icon: 'mdi-view-dashboard',
+										title: 'Dashboards',
+										to: '/dashboard',
+								},
+								{
+										icon: 'mdi-chart-line',
+										title: 'Stocks',
+										to: '/stocks',
+								},
+								{
+										icon: 'mdi-currency-eur',
+										title: 'Currencies',
+										to: '/currencies',
+								},
+								{
+										icon: 'mdi-account',
+										title: 'Account',
+										to: '/account',
+								}
+						],
+						miniVariant: false,
+						right: true,
+						rightDrawer: false,
+						title: 'Invest keep'
+				}
+		},
 }
 </script>
 
 <style>
 .app-layout__logOutButtonContainer {
-  display: flex;
-  justify-content: center;
-  margin-top: 2rem;
+		display: flex;
+		justify-content: center;
+		margin-top: 2rem;
 }
 </style>
