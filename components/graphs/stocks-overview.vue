@@ -4,7 +4,7 @@
 		<v-col cols="12" v-for="company in stockData" class="mb-5">
 			<v-card>
 				<v-card-title>
-					<div class="full-width d-flex justify-space-between">
+					<div class="full-width d-lg-flex justify-space-between">
 						<div class="d-flex">
 							<div>
 								{{ company.quote.companyName }}
@@ -12,16 +12,24 @@
 							</div>
 							<div class="ml-2" :class="[parseFloat(company.quote.change) > 0 ?  'green--text' : 'red--text']">
 								{{ company.quote.change }}
+								<v-icon class="mb-2 red--text" v-if="parseFloat(company.quote.change) < 0">mdi-elevation-decline</v-icon>
+								<v-icon class="mb-2 green--text" v-if="parseFloat(company.quote.change) > 0">mdi-elevation-rise</v-icon>
 							</div>
 						</div>
-						<v-btn @click="removeStock(company.quote.symbol)" class="mx-2" small dark color="error">
+						<div class="d-flex align-center">
+							<h5 class="mr-2">History:</h5>
+							<v-btn class="mr-1" @click="openHistoryDialiog(company.quote.symbol,7)" x-small color="primary" dark>7 days</v-btn>
+							<v-btn class="mr-1" @click="openHistoryDialiog(company.quote.symbol,14)" x-small color="primary" dark>14 days</v-btn>
+							<v-btn class="mr-1" @click="openHistoryDialiog(company.quote.symbol,30)" x-small color="primary" dark>30 days</v-btn>
+						</div>
+						<v-btn @click="removeStock(company.quote.symbol)" class="mx-lg-2" small dark color="error">
 							<v-icon dark>mdi-close</v-icon>
 						</v-btn>
 					</div>
 				</v-card-title>
 				<v-card-text>
 					<v-row>
-						<v-col cols="6">
+						<v-col cols="12">
 							<v-row>
 								<v-col cols="5">
 									<div class="d-flex justify-space-between">
@@ -97,18 +105,12 @@
 								</v-col>
 							</v-row>
 						</v-col>
-						<v-col cols="6">
-							<h5>History:</h5>
-							<v-btn @click="openHistoryDialiog(company.quote.symbol,7)" x-small color="primary" dark>7 days</v-btn>
-							<v-btn @click="openHistoryDialiog(company.quote.symbol,14)" x-small color="primary" dark>14 days</v-btn>
-							<v-btn @click="openHistoryDialiog(company.quote.symbol,30)" x-small color="primary" dark>30 days</v-btn>
-						</v-col>
 					</v-row>
 				</v-card-text>
 			</v-card>
 		</v-col>
 	</v-row>
-	<v-dialog v-model="isHistoryOpen" max-width="1000">
+	<v-dialog v-model="isHistoryOpen" max-width="1200">
 		<v-card>
 			<v-card-title>{{ historyDataDesc }}</v-card-title>
 			<GChart type="LineChart" :data="historyData" :options="chartOptions.chart" class="pb-5" />
@@ -182,7 +184,7 @@ export default {
 			historyData: [],
 			chartOptions: {
 				chart: {
-					width: 900,
+					width: 1000,
 				}
 			}
 		}
