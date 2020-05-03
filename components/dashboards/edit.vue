@@ -98,8 +98,8 @@
                                 <v-switch v-model="graph.volume_avg" label="Volume - avrage" color="green"></v-switch>
                             </v-col>
                             <v-col cols="3">
-                                <v-switch v-model="graph.shares" label="Number of shares" color="green"></v-switch>
-                            </v-col>
+                                <v-switch v-model="graph.shares" label="Number of shares" olor="green"></v-switch>
+                            </v-col>c
                             <v-col cols="3">
                                 <v-switch v-model="graph.pe" label="PE ratio" color="green"></v-switch>
                             </v-col>

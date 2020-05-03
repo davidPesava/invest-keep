@@ -1,7 +1,7 @@
 <template>
 <div>
 	<v-row>
-		<v-col cols="12" v-for="company in stockData" class="mb-5">
+		<v-col cols="12" lg="10" v-for="company in stockData" class="mb-5">
 			<v-card>
 				<v-card-title>
 					<div class="full-width d-lg-flex justify-space-between">
@@ -16,7 +16,7 @@
 								<v-icon class="mb-2 green--text" v-if="parseFloat(company.quote.change) > 0">mdi-elevation-rise</v-icon>
 							</div>
 						</div>
-						<div class="d-flex align-center">
+						<div class="d-lg-flex align-center">
 							<h5 class="mr-2">History:</h5>
 							<v-btn class="mr-1" @click="openHistoryDialiog(company.quote.symbol,7)" x-small color="primary" dark>7 days</v-btn>
 							<v-btn class="mr-1" @click="openHistoryDialiog(company.quote.symbol,14)" x-small color="primary" dark>14 days</v-btn>
@@ -31,7 +31,7 @@
 					<v-row>
 						<v-col cols="12">
 							<v-row>
-								<v-col cols="5">
+								<v-col cols="12" md="6" lg="4">
 									<div class="d-flex justify-space-between">
 										<div class="font-weight-bold">Calculation Price</div>
 										<div>{{ company.quote.calculationPrice }}</div>
@@ -42,61 +42,61 @@
 									</div>
 									<div class="d-flex justify-space-between">
 										<div class="font-weight-bold">Price open</div>
-										<div>{{ company.quote.latestPrice }}</div>
+										<div>{{ company.quote.open }}</div>
 									</div>
 									<div class="d-flex justify-space-between">
 										<div class="font-weight-bold">Day high</div>
-										<div>{{ company.quote.latestPrice }}</div>
+										<div>{{ company.quote.high }}</div>
 									</div>
 									<div class="d-flex justify-space-between">
 										<div class="font-weight-bold">Day low</div>
-										<div>{{ company.quote.latestPrice }}</div>
+										<div>{{ company.quote.low }}</div>
 									</div>
 									<div class="d-flex justify-space-between">
 										<div class="font-weight-bold">Day change</div>
-										<div>{{ company.quote.latestPrice }}</div>
+										<div>{{ company.quote.change }}</div>
 									</div>
 									<div class="d-flex justify-space-between">
-										<div class="font-weight-bold">Change pct</div>
-										<div>{{ company.quote.latestPrice }}</div>
+										<div class="font-weight-bold">Change percent</div>
+										<div>{{ company.quote.changePercent }}</div>
 									</div>
 									<div class="d-flex justify-space-between">
 										<div class="font-weight-bold">Closer yeasterday</div>
-										<div>{{ company.quote.latestPrice }}</div>
+										<div>{{ company.quote.previousClose }}</div>
 									</div>
 								</v-col>
-								<v-col cols="6" offset="1">
+								<v-col cols="12" md="6" lg="4" offset-lg="1">
 									<div class="d-flex justify-space-between">
 										<div class="font-weight-bold">52 Weeks high</div>
-										<div>{{ company.quote.latestPrice }}</div>
+										<div>{{ company.quote.week52High }}</div>
 									</div>
 									<div class="d-flex justify-space-between">
 										<div class="font-weight-bold">52 Weeks low</div>
-										<div>{{ company.quote.latestPrice }}</div>
+										<div>{{ company.quote.week52Low }}</div>
 									</div>
 									<div class="d-flex justify-space-between">
-										<div class="font-weight-bold">PE</div>
-										<div>{{ company.quote.latestPrice }}</div>
+										<div class="font-weight-bold">PE ratio</div>
+										<div>{{ company.quote.peRatio }}</div>
 									</div>
 									<div class="d-flex justify-space-between">
-										<div class="font-weight-bold">EPS</div>
-										<div>{{ company.quote.latestPrice }}</div>
+										<div class="font-weight-bold">Year change</div>
+										<div>{{ company.quote.ytdChange }}</div>
 									</div>
 									<div class="d-flex justify-space-between">
 										<div class="font-weight-bold">Market cap</div>
-										<div>{{ company.quote.latestPrice }}</div>
+										<div>{{ company.quote.marketCap }}</div>
 									</div>
 									<div class="d-flex justify-space-between">
 										<div class="font-weight-bold">Volume</div>
-										<div>{{ company.quote.latestPrice }}</div>
+										<div>{{ company.quote.latestVolume }}</div>
 									</div>
 									<div class="d-flex justify-space-between">
 										<div class="font-weight-bold">Volume avrage</div>
-										<div>{{ company.quote.latestPrice }}</div>
+										<div>{{ company.quote.avgTotalVolume }}</div>
 									</div>
 									<div class="d-flex justify-space-between">
 										<div class="font-weight-bold">Shares</div>
-										<div>{{ company.quote.latestPrice }}</div>
+										<div>{{ company.quote.previousVolume}}</div>
 									</div>
 								</v-col>
 								<v-col cols="12">
@@ -139,7 +139,8 @@ export default {
 	methods: {
 		async fetchStockData(symbols) {
 			const fetchedStocks = await this.$axios.$get('https://sandbox.iexapis.com/stable/stock/market/batch?symbols='+symbols+'&types=quote&range=1m&last=5&token=Tsk_8e75cf29a1414892afcee000eb0a31f9')
-			this.stockData =  Object.values(fetchedStocks)
+			this.stockData = Object.values(fetchedStocks)
+			console.log(Object.values(fetchedStocks))
 		},
 		async openHistoryDialiog(symbol, days) {
 			this.historyData = []
@@ -157,7 +158,6 @@ export default {
 			})
 			this.historyData = outerHelper
 			this.isHistoryOpen = true
-			console.log(this.historyData)
 		},
 		removeStock(symbol) {
 			let hel = JSON.parse(JSON.stringify(this.symbols))
