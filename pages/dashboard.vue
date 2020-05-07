@@ -141,6 +141,9 @@
 		<v-tab @click="changeToSecondary()">Secondary</v-tab>
 		<v-tab @click="changeToShowcase()">Showcase</v-tab>
 	</v-tabs>
+	<div v-if="loading" class="full-width">
+		<loading />
+	</div>
 	<primary v-if="dashboards.primary" :graphs="fetchedDashboardsData.primary" />
 	<secondary v-if="dashboards.secondary" :graphs="fetchedDashboardsData.secondary" />
 	<showcase v-if="dashboards.showcase" />
@@ -156,6 +159,7 @@ import primary from "../components/dashboards/primary"
 import secondary from "../components/dashboards/secondary"
 import showcase from "../components/dashboards/showcase"
 import edit from "../components/dashboards/edit"
+import loading from "../components/layout/loading"
 
 export default {
 	layout: 'app-layout',
@@ -165,14 +169,14 @@ export default {
 		primary,
 		secondary,
 		edit,
-		showcase
+		showcase,
+		loading
 	},
 	created: function () {
 		this.initStocks()
 	},
 	methods: {
 		async initStocks() {
-
 			this.currentUser = this.$store.state.users.currentUser
 			let allUsers = firebase.firestore().collection('users').doc(this.currentUser.uid)
 			let getDoc = allUsers.get()
@@ -205,6 +209,7 @@ export default {
 								}
 							)
 						})
+						this.loading = false
 					}
 				})
 		},
@@ -387,6 +392,7 @@ export default {
 	},
 	data() {
 		return {
+			loading: true,
 			dashboards: {
 				primary: true,
 				secondary: false,

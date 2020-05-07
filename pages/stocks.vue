@@ -58,6 +58,9 @@
 	</div>
 	<p>List of your stocks is below. To add new convesion , you  button "Add stock" <br />
 	Important note: Added stocks will be usable in dashboards.</p>
+	<div v-if="loading" class="full-width">
+		<loading />
+	</div>
 	<stocks-overview v-if="symbols.length" :symbols="symbols" />
 </v-layout>
 </template>
@@ -68,13 +71,15 @@ import {
 	GChart
 } from 'vue-google-charts'
 import stocksOverview from "../components/graphs/stocks-overview"
+import loading from "../components/layout/loading"
 
 export default {
 	layout: 'app-layout',
 	middleware: 'router-auth',
 	components: {
 		GChart,
-		stocksOverview
+		stocksOverview,
+		loading
 	},
 	created: function () {
 		this.initStocks()
@@ -91,6 +96,7 @@ export default {
 						let val = JSON.parse(JSON.stringify(doc.data()))
 						this.$store.commit('users/setCredentials', val)
 						this.symbols = val.stocks
+						this.loading = false
 					}
 				})
 		},
@@ -119,6 +125,7 @@ export default {
 	},
 	data() {
 		return {
+			loading: true,
 			snackbar: false,
 			dialog: false,
 			currentUser: "",

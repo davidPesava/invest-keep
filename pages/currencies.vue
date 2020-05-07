@@ -8,6 +8,9 @@
 		</v-btn>
 	</div>
 	<p>List of your exchange conversions rates  is below. To add new convesion , you  button "Add exchange rate"</p>
+	<div v-if="loading" class="full-width">
+		<loading />
+	</div>
 	<v-row>
 		<v-col cols="12">
 			<v-dialog v-model="dialog" transition="dialog-bottom-transition">
@@ -70,12 +73,13 @@ import {
 	GChart
 } from 'vue-google-charts'
 import moment from 'moment'
+import loading from "../components/layout/loading"
 
 export default {
 	layout: 'app-layout',
 	middleware: 'router-auth',
 	components: {
-		GChart
+		GChart, loading
 	},
 	created: function () {
 		this.initCurrencies()
@@ -83,6 +87,7 @@ export default {
 	},
 	data() {
 		return {
+			loading: true,
 			snackbar: false,
 			dialog: false,
 			currencies: [],
@@ -128,6 +133,7 @@ export default {
 							)
 						})
 					}
+					this.loading = false
 				})
 		},
 		async fetchCurrencies(from, to) {
