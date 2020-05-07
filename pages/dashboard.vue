@@ -132,12 +132,7 @@
 			<div class="d-flex justify-space-between align-items-center full-width px-5 pt-4">
 				<h2>Edit dashboards</h2>
 			</div>
-			<edit
-				:primary="dashboardsData.primary"
-				:secondary="dashboardsData.secondary"
-				:companies="companies"
-				:uid="currentUser.uid"
-			/>
+			<edit :primary="dashboardsData.primary" :secondary="dashboardsData.secondary" :companies="companies" :uid="currentUser.uid" />
 		</v-card>
 	</v-dialog>
 	<v-tabs light class="mb-6">
@@ -196,7 +191,7 @@ export default {
 
 						let arrayGraphs = val.primary
 						arrayGraphs.forEach((element) => {
-							let localGraphsArray = this.fetchGraph(element,actualLocalStocks).then(
+							let localGraphsArray = this.fetchGraph(element, actualLocalStocks).then(
 								singleGraph => {
 									this.fetchedDashboardsData.primary.push(singleGraph)
 								}
@@ -204,7 +199,7 @@ export default {
 						})
 						let arrayGraphs2 = val.secondary
 						arrayGraphs2.forEach((element2) => {
-							let localGraphsArray2 = this.fetchGraph(element2,actualLocalStocks).then(
+							let localGraphsArray2 = this.fetchGraph(element2, actualLocalStocks).then(
 								singleGraph2 => {
 									this.fetchedDashboardsData.secondary.push(singleGraph2)
 								}
@@ -214,16 +209,19 @@ export default {
 				})
 		},
 		async loadData(symbols) {
-			const lyer = await this.$axios.$get('https://sandbox.iexapis.com/stable/stock/market/batch?symbols='+symbols+'&types=quote&range=1m&last=5&token=Tsk_8e75cf29a1414892afcee000eb0a31f9')
+			const lyer = await this.$axios.$get('https://sandbox.iexapis.com/stable/stock/market/batch?symbols=' + symbols + '&types=quote&range=1m&last=5&token=Tsk_8e75cf29a1414892afcee000eb0a31f9')
 			return Object.values(lyer)
 		},
 		async returnPromise(promise) {
 
 		},
-		async fetchGraph(graph,stockArray) {
+		async fetchGraph(graph, stockArray) {
 			let propHelpArray = await stockArray
 
 			let symbol = graph.symbol
+
+			let filtered = propHelpArray.filter(item => symbol.includes(item.quote.symbol))
+
 			let graphOptions = graph
 			let outerHelper = {}
 			outerHelper.graphType = graphOptions.graph
@@ -280,7 +278,7 @@ export default {
 
 			//const lyer = await this.$axios.$get('https://sandbox.iexapis.com/stable/stock/market/batch?symbols='+symbol+'&types=quote&range=1m&last=5&token=Tsk_8e75cf29a1414892afcee000eb0a31f9')
 
-			propHelpArray.forEach((element2) => {
+			filtered.forEach((element2) => {
 				let helper = []
 				helper.push(element2.quote.companyName)
 				if (graphOptions.price) {
