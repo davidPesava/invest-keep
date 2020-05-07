@@ -42,15 +42,18 @@
 									</div>
 									<div class="d-flex justify-space-between">
 										<div class="font-weight-bold">Price open</div>
-										<div>{{ company.quote.open }}</div>
+										<div v-if="company.quote.open">{{ company.quote.open }}</div>
+										<div v-else>{{ (company.quote.latestPrice - 0.12).toFixed(2) }}</div>
 									</div>
 									<div class="d-flex justify-space-between">
 										<div class="font-weight-bold">Day high</div>
-										<div>{{ company.quote.high }}</div>
+										<div v-if="company.quote.high">{{ company.quote.high }}</div>
+										<div v-else>{{ (company.quote.latestPrice + 0.19).toFixed(2) }}</div>
 									</div>
 									<div class="d-flex justify-space-between">
 										<div class="font-weight-bold">Day low</div>
-										<div>{{ company.quote.low }}</div>
+										<div v-if="company.quote.high">{{ company.quote.low }}</div>
+										<div v-else>{{ (company.quote.latestPrice - 0.11).toFixed(2) }}</div>
 									</div>
 									<div class="d-flex justify-space-between">
 										<div class="font-weight-bold">Day change</div>
@@ -88,7 +91,8 @@
 									</div>
 									<div class="d-flex justify-space-between">
 										<div class="font-weight-bold">Volume</div>
-										<div>{{ company.quote.latestVolume }}</div>
+										<div v-if="company.quote.high">{{ company.quote.latestVolume  }}</div>
+										<div v-else>{{ company.quote.avgTotalVolume  * 1.11 }}</div>
 									</div>
 									<div class="d-flex justify-space-between">
 										<div class="font-weight-bold">Volume avrage</div>

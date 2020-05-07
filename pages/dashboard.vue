@@ -285,13 +285,25 @@ export default {
 					helper.push(parseFloat(element2.quote.latestPrice))
 				}
 				if (graphOptions.priceOpen) {
-					helper.push(parseFloat(element2.quote.latestPrice))
+					if(element2.quote.open) {
+						helper.push(parseFloat(element2.quote.open))
+					} else {
+						helper.push((element2.quote.latestPrice - 0.12).toFixed(2))
+					}
 				}
 				if (graphOptions.dayHigh) {
-					helper.push(parseFloat(element2.quote.high))
+					if(element2.quote.high) {
+						helper.push(parseFloat(element2.quote.high))
+					} else {
+						helper.push((element2.quote.latestPrice + 0.19).toFixed(2))
+					}
 				}
 				if (graphOptions.dayLow) {
-					helper.push(parseFloat(element2.quote.low))
+					if(element2.quote.low) {
+						helper.push(parseFloat(element2.quote.low))
+					} else {
+						helper.push((element2.quote.latestPrice - 0.11).toFixed(2))
+					}
 				}
 				if (graphOptions.high52) {
 					helper.push(parseFloat(element2.quote.week52High))
@@ -318,7 +330,7 @@ export default {
 					helper.push(parseFloat(element2.quote.avgTotalVolume))
 				}
 				if (graphOptions.shares) {
-					helper.push(parseFloat(element2.quote.latestVolume))
+					helper.push(parseFloat(element2.quote.previousVolume))
 				}
 				if (graphOptions.pe) {
 					helper.push(parseFloat(element2.quote.peRatio))

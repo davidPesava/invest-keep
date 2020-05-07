@@ -1,12 +1,13 @@
 <template>
 <v-layout column align-start class="pl-6">
-	<div class="d-flex justify-space-between align-items-center full-width">
+	<div class="d-flex justify-space-between align-items-center full-width mb-5">
 		<h1>Currencies (FOREX)</h1>
 		<v-btn @click="dialog = true" class="mx-2" large dark color="green">
 			<v-icon dark>mdi-plus</v-icon>
 			<span>Add exchange rate</span>
 		</v-btn>
 	</div>
+	<p>List of your exchange conversions rates  is below. To add new convesion , you  button "Add exchange rate"</p>
 	<v-row>
 		<v-col cols="12">
 			<v-dialog v-model="dialog" transition="dialog-bottom-transition">

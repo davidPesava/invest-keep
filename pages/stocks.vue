@@ -56,6 +56,8 @@
 			<span>Add stock</span>
 		</v-btn>
 	</div>
+	<p>List of your stocks is below. To add new convesion , you  button "Add stock" <br />
+	Important note: Added stocks will be usable in dashboards.</p>
 	<stocks-overview v-if="symbols.length" :symbols="symbols" />
 </v-layout>
 </template>
