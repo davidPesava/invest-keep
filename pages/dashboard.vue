@@ -176,7 +176,8 @@ export default {
 		this.initStocks()
 	},
 	methods: {
-		initStocks() {
+		async initStocks() {
+
 			this.currentUser = this.$store.state.users.currentUser
 			let allUsers = firebase.firestore().collection('users').doc(this.currentUser.uid)
 			let getDoc = allUsers.get()
@@ -191,9 +192,11 @@ export default {
 						this.dashboardsData.primary = val.primary
 						this.dashboardsData.secondary = val.secondary
 
+						let actualLocalStocks = this.loadData(val.stocks)
+
 						let arrayGraphs = val.primary
 						arrayGraphs.forEach((element) => {
-							let localGraphsArray = this.fetchGraph(element).then(
+							let localGraphsArray = this.fetchGraph(element,actualLocalStocks).then(
 								singleGraph => {
 									this.fetchedDashboardsData.primary.push(singleGraph)
 								}
@@ -201,7 +204,7 @@ export default {
 						})
 						let arrayGraphs2 = val.secondary
 						arrayGraphs2.forEach((element2) => {
-							let localGraphsArray2 = this.fetchGraph(element2).then(
+							let localGraphsArray2 = this.fetchGraph(element2,actualLocalStocks).then(
 								singleGraph2 => {
 									this.fetchedDashboardsData.secondary.push(singleGraph2)
 								}
@@ -210,7 +213,16 @@ export default {
 					}
 				})
 		},
-		async fetchGraph(graph) {
+		async loadData(symbols) {
+			const lyer = await this.$axios.$get('https://sandbox.iexapis.com/stable/stock/market/batch?symbols='+symbols+'&types=quote&range=1m&last=5&token=Tsk_8e75cf29a1414892afcee000eb0a31f9')
+			return Object.values(lyer)
+		},
+		async returnPromise(promise) {
+
+		},
+		async fetchGraph(graph,stockArray) {
+			let propHelpArray = await stockArray
+
 			let symbol = graph.symbol
 			let graphOptions = graph
 			let outerHelper = {}
@@ -266,10 +278,9 @@ export default {
 
 			outerHelper.data.push(descriptions)
 
-			const lyer = await this.$axios.$get('https://sandbox.iexapis.com/stable/stock/market/batch?symbols='+symbol+'&types=quote&range=1m&last=5&token=Tsk_8e75cf29a1414892afcee000eb0a31f9')
+			//const lyer = await this.$axios.$get('https://sandbox.iexapis.com/stable/stock/market/batch?symbols='+symbol+'&types=quote&range=1m&last=5&token=Tsk_8e75cf29a1414892afcee000eb0a31f9')
 
-			Object.values(lyer).forEach((element2) => {
-
+			propHelpArray.forEach((element2) => {
 				let helper = []
 				helper.push(element2.quote.companyName)
 				if (graphOptions.price) {
